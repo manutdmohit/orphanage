@@ -15,6 +15,9 @@ p {
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #f1f1f1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 header {
@@ -35,11 +38,13 @@ nav ul li {
 nav ul li a {
   color: #fff;
   text-decoration: none;
+  line-height: 40px;
 }
 
 main {
   margin: 20px;
   text-align: center;
+  flex-grow: 1;
 }
 
 h1 {
@@ -56,18 +61,21 @@ p {
   margin-bottom: 20px;
 }
 
-img {
+img.image {
   max-width: 100%;
+  max-height: 225px; /* Adjust the height as desired */
 }
 
 footer {
   background-color: #333;
   color: #fff;
-  padding: 20px;
+  padding: 10px 20px;
+  margin-top: auto;
 }
 
 .footer-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
@@ -76,7 +84,7 @@ footer {
   margin-bottom: 20px;
   max-height: 250px;
   overflow: auto;
-  text-align: center; /* Add text-align center */
+  text-align: center;
 }
 
 .footer-column h3 {
@@ -112,37 +120,4 @@ footer {
   text-align: center;
   color: #ccc;
   font-size: 12px;
-}
-
-/* Additional Styles */
-.footer-column .about-us p {
-  width: 80%;
-  margin: 0 auto;
-}
-
-/* Adjust Margins */
-.footer-container {
-  margin-bottom: 20px;
-}
-
-/* Responsive Styles */
-@media only screen and (max-width: 768px) {
-  h1 {
-    font-size: 30px;
-  }
-
-  p {
-    font-size: 16px;
-  }
-
-  /* New styles for mobile view */
-  nav ul {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 20px; /* Add padding to create space at left and right */
-  }
-
-  nav ul li {
-    margin-right: 0;
-  }
 }
