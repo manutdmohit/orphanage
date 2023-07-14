@@ -72,7 +72,10 @@ footer {
 }
 
 .footer-column {
-  flex-basis: 33.33%;
+  flex-basis: 30%; /* Adjust flex basis */
+  margin-bottom: 20px; /* Add margin bottom */
+  max-height: 250px; /* Increase max height */
+  overflow: auto; /* Add overflow property */
 }
 
 .footer-column h3 {
@@ -85,6 +88,7 @@ footer {
 .footer-column p {
   font-size: 14px;
   color: #ccc;
+  margin-bottom: 10px; /* Add margin bottom */
 }
 
 .footer-column ul {
@@ -109,6 +113,17 @@ footer {
   font-size: 12px;
 }
 
+/* Additional Styles */
+.footer-column .about-us p {
+  width: 80%; /* Set desired width */
+  margin: 0 auto; /* Center align the paragraph */
+}
+
+/* Adjust Margins */
+.footer-container {
+  margin-bottom: 20px;
+}
+
 /* Responsive Styles */
 @media only screen and (max-width: 768px) {
   h1 {
@@ -121,6 +136,7 @@ footer {
 
   .footer-container {
     flex-wrap: wrap;
+    margin-bottom: 0;
   }
 
   .footer-column {
