@@ -76,6 +76,7 @@ footer {
   margin-bottom: 20px;
   max-height: 250px;
   overflow: auto;
+  text-align: center; /* Add text-align center */
 }
 
 .footer-column h3 {
