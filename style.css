@@ -72,10 +72,10 @@ footer {
 }
 
 .footer-column {
-  flex-basis: 30%; /* Adjust flex basis */
-  margin-bottom: 20px; /* Add margin bottom */
-  max-height: 250px; /* Increase max height */
-  overflow: auto; /* Add overflow property */
+  flex-basis: 30%;
+  margin-bottom: 20px;
+  max-height: 250px;
+  overflow: auto;
 }
 
 .footer-column h3 {
@@ -88,7 +88,7 @@ footer {
 .footer-column p {
   font-size: 14px;
   color: #ccc;
-  margin-bottom: 10px; /* Add margin bottom */
+  margin-bottom: 10px;
 }
 
 .footer-column ul {
@@ -115,8 +115,8 @@ footer {
 
 /* Additional Styles */
 .footer-column .about-us p {
-  width: 80%; /* Set desired width */
-  margin: 0 auto; /* Center align the paragraph */
+  width: 80%;
+  margin: 0 auto;
 }
 
 /* Adjust Margins */
@@ -134,13 +134,14 @@ footer {
     font-size: 16px;
   }
 
-  .footer-container {
-    flex-wrap: wrap;
-    margin-bottom: 0;
+  /* New styles for mobile view */
+  nav ul {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px; /* Add padding to create space at left and right */
   }
 
-  .footer-column {
-    flex-basis: 100%;
-    margin-bottom: 20px;
+  nav ul li {
+    margin-right: 0;
   }
 }
