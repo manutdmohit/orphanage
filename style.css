@@ -75,6 +75,28 @@ img.image {
   margin-bottom: 20px;
 }
 
+/* Your CSS styles here */
+.carousel {
+  width: 100%;
+}
+
+.carousel img {
+  max-width: 100%;
+  height: auto;
+}
+
+.gallery {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 10px;
+}
+
+.gallery img {
+  width: 100%;
+  height: auto;
+}
+
 footer {
   background-color: #333;
   color: #fff;
@@ -129,8 +151,40 @@ footer {
   font-size: 12px;
 }
 
+/* .carousel {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.carousel .gallery-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 300px;
+}
+
+.carousel img {
+  max-width: 50%;
+  max-height: 100%;
+  object-fit: contain;
+} */
+
+.carousel {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.carousel-cell {
+  width: 100%;
+}
+
+.carousel img {
+  width: 50%;
+  height: auto;
+}
+
 /* Responsive styles */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   h1 {
     font-size: 30px;
   }
@@ -172,5 +226,16 @@ footer {
     max-width: 100%;
     text-align: left; /* Align the footer columns to the left side */
     margin-bottom: auto;
+  }
+
+  .carousel img {
+    max-height: 600px; /* Adjust the height for larger screens */
+  }
+}
+
+/* Adjust height for smaller screens */
+@media (max-width: 480px) {
+  .carousel img {
+    max-height: 300px; /* Adjust the height for smaller screens */
   }
 }

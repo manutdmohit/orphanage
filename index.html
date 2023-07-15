@@ -8,6 +8,10 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/flickity/2.2.2/flickity.min.css"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -39,7 +43,17 @@
           maiores, molestias consequatur. Minima voluptatibus adipisci ducimus
           expedita impedit dolore placeat hic animi!
         </p>
-        <img src="image.jpg" alt="Orphanage Image" class="image" />
+        <div class="carousel">
+          <div class="carousel-cell">
+            <img src="image1.jpg" alt="Image 1" />
+          </div>
+          <div class="carousel-cell">
+            <img src="image2.jpg" alt="Image 2" />
+          </div>
+          <div class="carousel-cell">
+            <img src="image3.jpg" alt="Image 3" />
+          </div>
+        </div>
       </article>
     </main>
 
@@ -70,6 +84,8 @@
       </div>
       <p class="footer-bottom" id="footer-year"></p>
     </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flickity/2.2.2/flickity.pkgd.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
