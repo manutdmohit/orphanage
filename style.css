@@ -1,4 +1,4 @@
-/* Reset some default styles */
+/* Reset default margin and padding */
 body,
 header,
 nav,
@@ -15,9 +15,13 @@ p {
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #f1f1f1;
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
+  padding-bottom: 0; /* Remove the padding at the bottom */
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
 header {
@@ -28,17 +32,16 @@ header {
 
 nav ul {
   list-style: none;
+  display: flex;
 }
 
 nav ul li {
-  display: inline;
   margin-right: 10px;
 }
 
 nav ul li a {
   color: #fff;
   text-decoration: none;
-  line-height: 40px;
 }
 
 main {
@@ -57,13 +60,19 @@ h1 {
 p {
   font-size: 18px;
   color: #555;
+  text-align: justify;
   line-height: 1.5;
   margin-bottom: 20px;
+}
+
+#location {
+  text-align: center;
 }
 
 img.image {
   max-width: 100%;
   max-height: 225px; /* Adjust the height as desired */
+  margin-bottom: 20px;
 }
 
 footer {
@@ -82,10 +91,12 @@ footer {
 .footer-column {
   flex-basis: 30%;
   margin-bottom: 20px;
-  max-height: 250px;
-  overflow: auto;
   text-align: center;
 }
+/* 
+#about-us-desc {
+  word-spacing: 0.1em;
+} */
 
 .footer-column h3 {
   font-size: 24px;
@@ -98,6 +109,7 @@ footer {
   font-size: 14px;
   color: #ccc;
   margin-bottom: 10px;
+  word-spacing: -0.1em;
 }
 
 .footer-column ul {
@@ -120,4 +132,20 @@ footer {
   text-align: center;
   color: #ccc;
   font-size: 12px;
+}
+
+/* Responsive styles */
+@media (max-width: 767px) {
+  main {
+    margin: 10px;
+  }
+
+  img.image {
+    margin-bottom: 10px;
+  }
+
+  .footer-column {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
 }
