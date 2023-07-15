@@ -93,10 +93,6 @@ footer {
   margin-bottom: 20px;
   text-align: center;
 }
-/* 
-#about-us-desc {
-  word-spacing: 0.1em;
-} */
 
 .footer-column h3 {
   font-size: 24px;
@@ -136,6 +132,25 @@ footer {
 
 /* Responsive styles */
 @media (max-width: 767px) {
+  h1 {
+    font-size: 30px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  /* New styles for mobile view */
+  nav ul {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px; /* Add padding to create space at left and right */
+  }
+
+  nav ul li {
+    margin-right: 0;
+  }
+
   main {
     margin: 10px;
   }
@@ -144,8 +159,19 @@ footer {
     margin-bottom: 10px;
   }
 
+  /* .footer-column {
+    flex-basis: 100%;
+    max-width: 100%;
+  } */
+
+  .footer-container {
+    flex-direction: column; /* Stack the columns vertically in mobile view */
+  }
+
   .footer-column {
     flex-basis: 100%;
     max-width: 100%;
+    text-align: left; /* Align the footer columns to the left side */
+    margin-bottom: auto;
   }
 }
