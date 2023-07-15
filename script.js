@@ -10,5 +10,6 @@ document.addEventListener('DOMContentLoaded', function () {
     contain: true,
     prevNextButtons: false,
     pageDots: false,
+    wrapAround: true,
   });
 });
