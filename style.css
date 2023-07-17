@@ -169,6 +169,7 @@ footer {
 section ul {
   margin: 10px 0;
   padding-left: 0;
+  text-align: initial;
 }
 
 section li {
@@ -188,15 +189,13 @@ section li::before {
   flex-shrink: 0;
 }
 
-section p {
-  text-align: justify;
-  margin: 0;
-  margin-left: 1em;
-  text-indent: -1em;
+/* Fix for section ul li p element */
+section ul li p {
+  text-indent: 0;
 }
 
 /* Responsive styles */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   h1 {
     font-size: 30px;
   }
@@ -243,37 +242,10 @@ section p {
   .carousel img {
     max-height: 600px; /* Adjust the height for larger screens */
   }
-
-  /* Additional styles for programs.html */
-  section {
-    margin-bottom: 40px;
-  }
-
-  section h2 {
-    font-size: 24px;
-  }
-
-  section p {
-    font-size: 16px;
-    margin-bottom: 10px;
-    text-align: justify;
-  }
-
-  section ul {
-    margin: 10px 0;
-    padding-left: 20px;
-  }
-
-  section li {
-    font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 10px;
-    list-style-type: disc;
-  }
 }
 
 /* Adjust height for smaller screens */
-@media (max-width: 480px) {
+@media (max-width: 479px) {
   .carousel img {
     max-height: 300px; /* Adjust the height for smaller screens */
   }
