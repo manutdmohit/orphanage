@@ -213,6 +213,32 @@ footer {
   .carousel img {
     max-height: 600px; /* Adjust the height for larger screens */
   }
+
+  /* Additional styles for programs.html */
+  section {
+    margin-bottom: 40px;
+  }
+
+  section h2 {
+    font-size: 24px;
+  }
+
+  section p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  section ul {
+    margin-left: 20px; /* Adjust the margin for bullet points */
+    padding-left: 20px; /* Adjust the padding for bullet points */
+  }
+
+  section li {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    list-style-type: disc; /* Use disc style for bullet points */
+  }
 }
 
 /* Adjust height for smaller screens */
