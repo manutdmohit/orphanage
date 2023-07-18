@@ -212,16 +212,33 @@ section ul li p {
     margin-bottom: 10px;
   }
 
-  .carousel img {
-    height: 80%;
-    width: 80%;
-    max-height: 500px; /* Adjust the height for larger screens */
+  .carousel-cell img {
+    max-height: 004px; /* Adjust the height for smaller screens */
   }
 
-  /* .footer-column {
-    flex-basis: 100%;
-    max-width: 100%;
-  } */
+  /* Move prev and next arrows to the center of either side of the image */
+  .flickity-prev-button,
+  .flickity-next-button {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 2;
+  }
+
+  .flickity-prev-button {
+    left: 10px;
+  }
+
+  .flickity-next-button {
+    right: 10px;
+  }
 
   .footer-container {
     flex-direction: column; /* Stack the columns vertically in mobile view */
