@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var carousel = new Flickity('.carousel', {
     cellAlign: 'left',
     contain: true,
-    prevNextButtons: false,
+    prevNextButtons: true,
     pageDots: false,
     wrapAround: true,
     autoPlay: 4000, // Initial autoplay duration
