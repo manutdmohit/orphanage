@@ -213,31 +213,21 @@ section ul li p {
   }
 
   .carousel-cell img {
-    max-height: 004px; /* Adjust the height for smaller screens */
+    max-height: 80vh; /* Adjust the height based on the viewport height */
   }
 
   /* Move prev and next arrows to the center of either side of the image */
   .flickity-prev-button,
   .flickity-next-button {
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    z-index: 2;
+    top: calc(50% - 20px); /* Vertically center the arrows */
   }
 
-  .flickity-prev-button {
-    left: 10px;
+  .flickity-prev-next-button.previous {
+    left: -45px;
   }
 
-  .flickity-next-button {
-    right: 10px;
+  .flickity-prev-next-button.next {
+    right: -45px;
   }
 
   .footer-container {
@@ -252,13 +242,7 @@ section ul li p {
   }
 
   .carousel img {
-    max-height: 600px; /* Adjust the height for larger screens */
-  }
-}
-
-/* Adjust height for smaller screens */
-@media (max-width: 479px) {
-  .carousel img {
-    max-height: 300px; /* Adjust the height for smaller screens */
+    height: auto; /* Adjust the height for larger screens */
+    width: auto;
   }
 }
