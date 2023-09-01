@@ -59,7 +59,10 @@ h1 {
 
 p {
   font-size: 18px;
+  font-family: 'Roboto', sans-serif;
+
   /* color: #555; */
+  font-weight: 600;
   text-align: justify;
   line-height: 1.5;
   margin-bottom: 20px;
@@ -163,6 +166,12 @@ footer {
 .carousel img {
   width: 50%;
   height: auto;
+}
+
+.sub-head {
+  text-align: center;
+  color: #333;
+  font-weight: bold;
 }
 
 /* Additional styles for programs.html */
