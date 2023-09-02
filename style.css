@@ -13,21 +13,24 @@ p {
 
 /* Apply basic styles to the website */
 body {
-  font-family: 'Roboto', sans-serif;
+  /* font-family: 'Roboto', sans-serif; */
+  font-family: 'Barlow', sans-serif;
   background-color: #f1f1f1;
   position: relative;
   min-height: 100vh;
   margin: 0;
-  padding-bottom: 0; /* Remove the padding at the bottom */
+  padding-bottom: 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
 }
 
 header {
-  background-color: #333;
+  --tw-bg-opacity: 1;
+  background-color: rgb(18 30 119 / var(--tw-bg-opacity));
+  /* background-color: #21004d; */
   color: #fff;
-  padding: 15px;
+  padding: 20px;
 }
 
 nav ul {
@@ -60,8 +63,6 @@ h1 {
 p {
   font-size: 18px;
   font-family: 'Roboto', sans-serif;
-
-  /* color: #555; */
   font-weight: 600;
   text-align: justify;
   line-height: 1.5;
@@ -74,7 +75,7 @@ p {
 
 img.image {
   max-width: 100%;
-  max-height: 225px; /* Adjust the height as desired */
+  max-height: 225px;
   margin-bottom: 20px;
 }
 
@@ -101,7 +102,9 @@ img.image {
 }
 
 footer {
-  background-color: #333;
+  /* background-color: #333; */
+  --tw-bg-opacity: 1;
+  background-color: rgb(18 30 119 / var(--tw-bg-opacity));
   color: #fff;
   padding: 10px 20px;
   margin-top: auto;
@@ -238,13 +241,12 @@ th {
   }
 
   .carousel-cell img {
-    max-height: 80vh; /* Adjust the height based on the viewport height */
+    max-height: 80vh;
   }
 
-  /* Move prev and next arrows to the center of either side of the image */
   .flickity-prev-button,
   .flickity-next-button {
-    top: calc(50% - 20px); /* Vertically center the arrows */
+    top: calc(50% - 20px);
   }
 
   .flickity-prev-next-button.previous {
@@ -256,18 +258,18 @@ th {
   }
 
   .footer-container {
-    flex-direction: column; /* Stack the columns vertically in mobile view */
+    flex-direction: column;
   }
 
   .footer-column {
     flex-basis: 100%;
     max-width: 100%;
-    text-align: left; /* Align the footer columns to the left side */
+    text-align: left;
     margin-bottom: auto;
   }
 
   .carousel img {
-    height: auto; /* Adjust the height for larger screens */
+    height: auto;
     width: auto;
   }
 }
