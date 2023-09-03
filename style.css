@@ -222,28 +222,47 @@ section ul li p {
   text-indent: 0;
 }
 
-table {
+/* Add a new class for the table container to differentiate from other containers */
+.sticky-table-container {
+  max-height: 200px;
+  /* overflow-y: scroll; */
+  overflow: auto;
+  position: relative;
+}
+
+/* Update the table to have a sticky header */
+.sticky-table-container table {
   border-collapse: collapse;
   width: 100%;
 }
 
-th,
-td {
-  border: 1px solid black;
-  padding: 8px;
+.sticky-table-container th,
+.sticky-table-container td {
+  border: 1px solid #ddd;
+  padding: 7px;
   text-align: left;
 }
 
-th {
-  /* background-color: #f2f2f2; */
-  background-color: #00000052;
+.sticky-table-container th {
+  background-color: inherit;
+  color: #fff;
   font-weight: inherit;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Style for sticky table header */
+#myTable thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f2f2f2;
+  z-index: 2;
 }
 
 img {
   width: 30%;
   height: fit-content;
-  /* border: 2px solid #000; */
 }
 
 /* Style the image container */
@@ -257,7 +276,6 @@ img {
 .image-container img {
   max-width: 30%; /* Adjust the width as needed */
   height: auto; /* Maintain aspect ratio */
-  /* border: 2px solid #000;  */
 }
 
 /* Responsive styles */
@@ -276,7 +294,7 @@ img {
 
   img {
     width: 50%;
-    /* border: 2px solid #000; */
+    border: 2px solid #000;
   }
 
   img.image {
