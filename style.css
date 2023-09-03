@@ -15,7 +15,13 @@ p {
 body {
   /* font-family: 'Roboto', sans-serif; */
   font-family: 'Barlow', sans-serif;
-  background-color: #f1f1f1;
+  /* background-color: #f1f1f1;*/
+  /* background-color: rgba(0, 0, 0, 0); */
+  /* color: rgb(255, 255, 255); */
+  /* background-color: transparent; */
+  /* background-color: #ccc3c6; */
+  background-color: #ffd5d52b;
+
   position: relative;
   min-height: 100vh;
   margin: 0;
