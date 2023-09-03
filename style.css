@@ -292,11 +292,6 @@ img {
     margin: 10px;
   }
 
-  img {
-    width: 50%;
-    border: 2px solid #000;
-  }
-
   img.image {
     margin-bottom: 10px;
   }
