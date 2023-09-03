@@ -119,6 +119,12 @@ img.image {
   height: auto;
 }
 
+.map-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 footer {
   /* background-color: #333; */
   --tw-bg-opacity: 1;
