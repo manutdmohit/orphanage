@@ -232,42 +232,36 @@ section ul li p {
   text-indent: 0;
 }
 
-/* Add a new class for the table container to differentiate from other containers */
-.sticky-table-container {
-  max-height: 200px;
-  /* overflow-y: scroll; */
-  overflow: auto;
-  position: relative;
-}
-
-/* Update the table to have a sticky header */
-.sticky-table-container table {
+table {
+  font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
 
-.sticky-table-container th,
-.sticky-table-container td {
-  border: 1px solid #ddd;
-  padding: 7px;
+td,
+th {
   text-align: left;
+  padding: 8px;
 }
 
-.sticky-table-container th {
-  background-color: inherit;
-  color: #fff;
-  font-weight: inherit;
-  position: sticky;
-  top: 0;
-  z-index: 1;
+tr:nth-child(even) {
+  background-color: #ddd;
+  background: rgb(29, 45, 77, 1);
 }
 
-/* Style for sticky table header */
-#myTable thead th {
+/* The scrollable part */
+
+.scrollable {
+  height: 165px;
+  overflow-y: scroll;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
   position: sticky;
-  top: 0;
-  background-color: #f2f2f2;
+  background-color: rgb(29, 45, 77, 1);
   z-index: 2;
+  top: 0;
 }
 
 img {
