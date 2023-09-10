@@ -50,7 +50,6 @@ body {
 }
 
 .container {
-  /* max-height: 300px; */
   margin: 0 auto;
   padding: 0 20px;
   display: flex;
@@ -58,18 +57,20 @@ body {
   align-items: center;
 }
 
-nav ul {
+.nav-links {
   list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
 }
 
-nav ul li {
-  margin-right: 10px;
+.nav-links li {
+  margin-right: 20px;
 }
 
-nav ul li a {
-  color: #fff;
+.nav-links a {
   text-decoration: none;
+  color: #fff;
   font-size: 1.2rem;
   letter-spacing: 0.1rem;
 }
@@ -368,8 +369,25 @@ img {
     font-size: 16px;
   }
 
+  .navbar {
+    padding: 10px; /* Reduce padding for smaller screens */
+  }
+
+  .nav-links {
+    /* Keep navigation links in a horizontal layout */
+    flex-direction: row;
+    justify-content: center; /* Center align links horizontally */
+    align-items: center; /* Center align text vertically */
+    text-align: center; /* Center align text */
+  }
+
+  .nav-links li {
+    margin-right: 10px; /* Add spacing between list items */
+    margin-bottom: 0; /* Remove vertical margin for list items */
+  }
+
   main {
-    margin-top: 100px;
+    margin-top: 60px;
   }
 
   img.image {
