@@ -430,3 +430,22 @@ img {
     width: 80%;
   }
 }
+
+/* Responsive styles for screens with a maximum width of 355px */
+@media (max-width: 355px) {
+  .navbar {
+    padding: 15px; /* Reduce padding for smaller screens */
+  }
+
+  .nav-links {
+    /* Keep navigation links in a horizontal layout */
+    flex-direction: row;
+    justify-content: center; /* Center align links horizontally */
+    align-items: center; /* Center align text vertically */
+    text-align: center; /* Center align text */
+  }
+
+  .nav-links li {
+    margin-right: 5px; /* Reduce spacing between list items */
+  }
+}
