@@ -358,6 +358,22 @@ img {
   }
 }
 
+/* Change the color of the scrollbar track */
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: #f0f0f0; /* Light gray color for the track */
+}
+
+/* Change the color of the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #3498db; /* Blue color for the thumb */
+}
+
+/* Change the color of the scrollbar thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #2980b9; /* Slightly darker blue color on hover */
+}
+
 /* Responsive styles */
 @media (max-width: 767px) {
   h1 {
