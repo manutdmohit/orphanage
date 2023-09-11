@@ -105,6 +105,10 @@ p {
   text-align: center;
 }
 
+.mySlides img {
+  width: 50%;
+}
+
 img.image {
   max-width: 100%;
   max-height: 225px;
@@ -384,6 +388,10 @@ img {
     font-size: 16px;
   }
 
+  .mySlides img {
+    width: 80%;
+  }
+
   .navbar {
     padding: 15px; /* Reduce padding for smaller screens */
   }
@@ -463,5 +471,9 @@ img {
 
   .nav-links li {
     margin-right: 5px; /* Reduce spacing between list items */
+  }
+
+  .mySlides img {
+    width: 80%;
   }
 }
