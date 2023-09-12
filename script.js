@@ -16,8 +16,9 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // aboutUs.addEventListener('click', function () {
-  //   navLinks.classList.toggle('active');
-  //   // mainContent.classList.toggle('main-menu-active-active-padding');
+  //   // navLinks.classList.toggle('active');
+  //   console.log('clicked');
+  //   mainContent.classList.toggle('main-menu-active-active-padding');
   // });
 });
 

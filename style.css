@@ -430,10 +430,6 @@ main {
     display: flex;
   }
 
-  #nav-links.active {
-    display: block;
-  }
-
   .nav-links li {
     margin-top: 10px;
   }
