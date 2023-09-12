@@ -15,9 +15,10 @@ p {
   box-sizing: border-box;
 }
 
-.mySlides {
+/* .mySlides {
   display: none;
-}
+} */
+
 img {
   vertical-align: middle;
 }
@@ -89,7 +90,7 @@ h1 {
 }
 
 p {
-  font-size: 22px;
+  font-size: 18px;
   font-family: 'Roboto', sans-serif;
   /* font-weight: inherit; */
   font-weight: 400;
@@ -378,6 +379,12 @@ img {
   background-color: #2980b9; /* Slightly darker blue color on hover */
 }
 
+@media (min-width: 767px) {
+  .hamburger-icon {
+    display: none;
+  }
+}
+
 /* Responsive styles */
 @media (max-width: 767px) {
   h1 {
@@ -388,25 +395,37 @@ img {
     font-size: 16px;
   }
 
-  .mySlides img {
-    width: 80%;
+  .nav-links {
+    display: none;
   }
 
-  .navbar {
-    padding: 15px; /* Reduce padding for smaller screens */
+  .hamburger-icon {
+    cursor: pointer;
+    text-align: right; /* Align the icon to the right */
   }
 
   .nav-links {
-    /* Keep navigation links in a horizontal layout */
-    flex-direction: row;
-    justify-content: center; /* Center align links horizontally */
-    align-items: center; /* Center align text vertically */
-    text-align: center; /* Center align text */
+    display: none;
+    flex-direction: column;
+    background-color: #102533; /* Background color for the mobile menu */
+    position: absolute;
+    top: 50px; /* Adjust as needed to position the mobile menu */
+    right: 0;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .nav-links.active {
+    display: flex;
+    align-items: flex-end;
   }
 
   .nav-links li {
-    margin-right: 10px; /* Add spacing between list items */
-    margin-bottom: 0; /* Remove vertical margin for list items */
+    margin-top: 10px;
+  }
+
+  .nav-links a {
+    text-align: start;
   }
 
   main {
@@ -419,19 +438,6 @@ img {
 
   .carousel-cell img {
     max-height: 80vh;
-  }
-
-  .flickity-prev-button,
-  .flickity-next-button {
-    top: calc(50% - 20px);
-  }
-
-  .flickity-prev-next-button.previous {
-    left: -45px;
-  }
-
-  .flickity-prev-next-button.next {
-    right: -45px;
   }
 
   .footer-container {
@@ -448,29 +454,6 @@ img {
   .carousel img {
     height: auto;
     width: auto;
-  }
-
-  .slideshow-container.mySlides img {
-    width: 80%;
-  }
-}
-
-/* Responsive styles for screens with a maximum width of 355px */
-@media (max-width: 355px) {
-  .navbar {
-    padding: 15px; /* Reduce padding for smaller screens */
-  }
-
-  .nav-links {
-    /* Keep navigation links in a horizontal layout */
-    flex-direction: row;
-    justify-content: center; /* Center align links horizontally */
-    align-items: center; /* Center align text vertically */
-    text-align: center; /* Center align text */
-  }
-
-  .nav-links li {
-    margin-right: 5px; /* Reduce spacing between list items */
   }
 
   .mySlides img {
