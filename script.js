@@ -9,9 +9,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const mainContent = document.querySelector('main');
 
   const aboutUs = document.querySelector('#about-us');
-  // aboutUs.addEventListener('click', function () {
-  //   console.log('About us clicked');
-  // });
 
   hamburgerIcon.addEventListener('click', function () {
     navLinks.classList.toggle('active');
@@ -19,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   aboutUs.addEventListener('click', function () {
-    console.log('About us clicked');
     navLinks.classList.toggle('active');
     mainContent.classList.toggle('main-menu-active-padding');
   });
