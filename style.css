@@ -380,6 +380,15 @@ img {
   background-color: #2980b9; /* Slightly darker blue color on hover */
 }
 
+main {
+  position: relative;
+  transition: padding-top 0.3s ease;
+}
+
+.hamburger-icon:hover ~ main {
+  padding-top: 0;
+}
+
 @media (min-width: 767px) {
   .hamburger-icon {
     display: none;
@@ -414,11 +423,15 @@ img {
     right: 0;
     width: 100%;
     padding: 20px;
+    z-index: 999;
   }
 
   .nav-links.active {
     display: flex;
-    align-items: flex-end;
+  }
+
+  #nav-links.active {
+    display: block;
   }
 
   .nav-links li {
@@ -429,16 +442,8 @@ img {
     text-align: start;
   }
 
-  main {
-    margin-top: 80px;
-  }
-
-  img.image {
-    margin-bottom: 10px;
-  }
-
-  .carousel-cell img {
-    max-height: 80vh;
+  .main-menu-active-padding {
+    padding-top: 150px; /* Adjust the top padding to match your header height */
   }
 
   .footer-container {
