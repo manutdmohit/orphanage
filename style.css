@@ -461,4 +461,8 @@ main {
   .mySlides img {
     width: 80%;
   }
+
+  .map-container iframe {
+    width: 90%;
+  }
 }
