@@ -103,6 +103,20 @@ p {
   word-spacing: 0.1rem;
 }
 
+#mapText {
+  font-size: 18px;
+  font-family: 'Roboto', sans-serif;
+  /* font-weight: inherit; */
+  font-weight: 400;
+  text-align: justify;
+  line-height: 1.8;
+  letter-spacing: 0.1rem;
+  /* margin-bottom: 20px; */
+  margin: 0 0 22px 0;
+  word-spacing: 0.1rem;
+  margin: 100px 20px 20px 20px;
+}
+
 #location {
   text-align: center;
 }
