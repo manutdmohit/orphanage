@@ -404,6 +404,35 @@ img {
   }
 }
 
+.items-list {
+  margin-top: -40px;
+}
+
+.second-list {
+  margin-top: -20px;
+}
+
+/* Add this CSS to your stylesheet */
+.items-list ul {
+  /* list-style-type: none; */
+  padding: 0;
+}
+
+.items-list li {
+  text-align: left;
+  line-height: 1.5; /* Add line spacing (adjust as needed) */
+  font-size: 18px;
+  font-family: 'Roboto', sans-serif;
+  /* font-weight: inherit; */
+  font-weight: 400;
+  text-align: justify;
+  line-height: 1.8;
+  letter-spacing: 0.1rem;
+  /* margin: 0 0 22px 0; */
+  margin-left: 20px; /* Add left margin for indentation (adjust as needed) */
+  word-spacing: 0.1rem;
+}
+
 /* Change the color of the scrollbar track */
 ::-webkit-scrollbar {
   width: 10px;
@@ -479,7 +508,7 @@ main {
   }
 
   .main-menu-active-padding {
-    padding-top: 150px; /* Adjust the top padding to match your header height */
+    padding-top: 170px; /* Adjust the top padding to match your header height */
   }
 
   .footer-container {
