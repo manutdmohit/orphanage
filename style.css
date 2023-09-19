@@ -433,6 +433,50 @@ img {
   word-spacing: 0.1rem;
 }
 
+/* Style for the image modal */
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  overflow: auto;
+}
+
+.modal-content {
+  width: 40%;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  /* height: 100%; */
+  margin: 120px auto;
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Gallery image styles */
+.gallery img {
+  max-width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.gallery img:hover {
+  opacity: 0.7;
+}
+
 /* Change the color of the scrollbar track */
 ::-webkit-scrollbar {
   width: 10px;
@@ -509,6 +553,15 @@ main {
 
   .main-menu-active-padding {
     padding-top: 170px; /* Adjust the top padding to match your header height */
+  }
+
+  .modal-content {
+    width: 90%;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    /* height: 100%; */
+    margin: 200px auto;
   }
 
   .footer-container {

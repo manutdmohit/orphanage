@@ -41,18 +41,24 @@
 
     <main>
       <div class="gallery">
-        <img src="./image4.jpg" alt="" srcset="" />
-        <img src="./image2.jpg" alt="image1" srcset="" />
-        <img src="./image3.jpg" alt="" srcset="" />
-        <img src="image5.jpg" alt="" srcset="" />
-        <img src="./image1.jpg" alt="image1" srcset="" />
-        <img src="./image6.jpg" alt="" />
-        <img src="./image7.jpg" alt="" />
-        <img src="./image8.jpg" alt="" />
-        <img src="./image11.jpg" alt="" srcset="" />
-        <img src="./image10.jpg" alt="" srcset="" />
+        <img src="./image4.jpg" alt="" srcset="" class="gallery-img" />
+        <img src="./image2.jpg" alt="image1" srcset="" class="gallery-img" />
+        <img src="./image3.jpg" alt="" srcset="" class="gallery-img" />
+        <img src="image5.jpg" alt="" srcset="" class="gallery-img" />
+        <img src="./image1.jpg" alt="image1" srcset="" class="gallery-img" />
+        <img src="./image6.jpg" alt="" class="gallery-img" />
+        <img src="./image7.jpg" alt="" class="gallery-img" />
+        <img src="./image8.jpg" alt="" class="gallery-img" />
+        <img src="./image11.jpg" alt="" srcset="" class="gallery-img" />
+        <img src="./image10.jpg" alt="" srcset="" class="gallery-img" />
       </div>
     </main>
+
+    <!-- Modal for displaying the enlarged image -->
+    <div class="modal" id="imageModal">
+      <span class="close" id="closeModal">&times;</span>
+      <img class="modal-content" id="modalImage" />
+    </div>
 
     <footer>
       <div class="footer-container">
@@ -94,6 +100,6 @@
       <p class="footer-bottom" id="footer-year"></p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="./script.js"></script>
   </body>
 </html>
