@@ -14,39 +14,72 @@ document.addEventListener('DOMContentLoaded', function () {
     navLinks.classList.toggle('active');
     mainContent.classList.toggle('main-menu-active-padding');
   });
-
-  // aboutUs.addEventListener('click', function () {
-  //   // navLinks.classList.toggle('active');
-  //   console.log('clicked');
-  //   mainContent.classList.toggle('main-menu-active-active-padding');
-  // });
-
-  // Get the modal, modal image, and close button
+  // Get references to the gallery images, modal elements, and current image index
+  const galleryImages = document.querySelectorAll('.gallery-img');
   const modal = document.getElementById('imageModal');
   const modalImage = document.getElementById('modalImage');
-  const closeModal = document.querySelector('.close');
+  const closeModalButton = document.getElementById('closeModal');
+  let currentImageIndex = 0;
 
-  // Get all images in the gallery
-  const galleryImages = document.querySelectorAll('.gallery img');
+  // Function to display the current image in the modal
+  function showImageInModal() {
+    modalImage.src = galleryImages[currentImageIndex].src;
+    modal.style.display = 'block';
+  }
 
-  // Add click event listeners to gallery images
-  galleryImages.forEach((image) => {
-    image.addEventListener('click', () => {
-      modal.style.display = 'block'; // Display the modal
-      modalImage.src = image.src; // Set the modal image source to the clicked image
+  // Function to close the modal
+  function closeModal() {
+    modal.style.display = 'none';
+  }
+
+  // Function to navigate to the next image in the modal
+  function nextImageInModal() {
+    currentImageIndex++;
+    if (currentImageIndex >= galleryImages.length) {
+      currentImageIndex = 0;
+    }
+    showImageInModal();
+  }
+
+  // Function to navigate to the previous image in the modal
+  function prevImageInModal() {
+    currentImageIndex--;
+    if (currentImageIndex < 0) {
+      currentImageIndex = galleryImages.length - 1;
+    }
+    showImageInModal();
+  }
+
+  // Attach keyboard event listeners for modal navigation
+  document.addEventListener('keydown', function (event) {
+    if (modal.style.display === 'block') {
+      if (event.key === 'ArrowRight') {
+        nextImageInModal();
+      } else if (event.key === 'ArrowLeft') {
+        prevImageInModal();
+      } else if (event.key === 'Escape') {
+        closeModal();
+      }
+    }
+  });
+
+  // Attach click event listener to open modal when a gallery image is clicked
+  galleryImages.forEach((image, index) => {
+    image.addEventListener('click', function () {
+      currentImageIndex = index;
+      showImageInModal();
     });
   });
 
-  // Close the modal when the close button or outside the modal is clicked
-  closeModal.addEventListener('click', () => {
-    modal.style.display = 'none'; // Hide the modal
-  });
-
-  window.addEventListener('click', (event) => {
+  // Attach click event listener to close modal when clicking outside the image
+  modal.addEventListener('click', function (event) {
     if (event.target === modal) {
-      modal.style.display = 'none'; // Close modal if clicked outside of the modal content
+      closeModal();
     }
   });
+
+  // Attach click event listener to close modal
+  closeModalButton.addEventListener('click', closeModal);
 });
 
 let slideIndex = 0;
@@ -73,40 +106,3 @@ function showSlides() {
   dots[slideIndex - 1].className += ' active';
   setTimeout(showSlides, 2000); // Change image every 2 seconds
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-  console.log('Gallery');
-  // Get all images in the gallery
-  const images = document.querySelectorAll('.gallery img');
-  console.log(images);
-
-  // Get the modal and modal image elements
-  const modal = document.getElementById('imageModal');
-  const modalImage = document.getElementById('modalImage');
-
-  // Function to open the modal and display the clicked image
-  function openModal(imageSrc) {
-    modal.style.display = 'block';
-    modalImage.src = imageSrc;
-  }
-
-  // Add click event listeners to all gallery images
-  images.forEach((image) => {
-    image.addEventListener('click', () => {
-      console.log('clicked');
-      openModal(image.src);
-    });
-  });
-
-  // Function to close the modal when the close button is clicked
-  document.getElementById('closeModal').addEventListener('click', () => {
-    modal.style.display = 'none';
-  });
-
-  // Close the modal when the user clicks anywhere outside of it
-  window.addEventListener('click', (event) => {
-    if (event.target === modal) {
-      modal.style.display = 'none';
-    }
-  });
-});
