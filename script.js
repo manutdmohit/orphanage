@@ -63,6 +63,37 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  // Variables to store touch start coordinates
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  // Function to handle touch start event
+  function handleTouchStart(event) {
+    touchStartX = event.touches[0].clientX;
+    touchStartY = event.touches[0].clientY;
+  }
+
+  // Function to handle touch end event
+  function handleTouchEnd(event) {
+    const touchEndX = event.changedTouches[0].clientX;
+    const touchEndY = event.changedTouches[0].clientY;
+    const touchXDiff = touchEndX - touchStartX;
+    const touchYDiff = touchEndY - touchStartY;
+
+    if (Math.abs(touchXDiff) > Math.abs(touchYDiff)) {
+      // Horizontal swipe detected
+      if (touchXDiff > 0) {
+        prevImageInModal(); // Swipe right
+      } else {
+        nextImageInModal(); // Swipe left
+      }
+    }
+  }
+
+  // Attach touch event listeners to the modal
+  modal.addEventListener('touchstart', handleTouchStart);
+  modal.addEventListener('touchend', handleTouchEnd);
+
   // Attach click event listener to open modal when a gallery image is clicked
   galleryImages.forEach((image, index) => {
     image.addEventListener('click', function () {
