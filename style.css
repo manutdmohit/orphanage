@@ -552,7 +552,7 @@ main {
   }
 
   .main-menu-active-padding {
-    padding-top: 170px; /* Adjust the top padding to match your header height */
+    padding-top: 180px; /* Adjust the top padding to match your header height */
   }
 
   .modal-content {
