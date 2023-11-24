@@ -621,3 +621,45 @@ main {
     width: 90%;
   }
 }
+
+/* Style for the table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+}
+
+/* Style for table headers */
+th {
+  background-color: #b9abab;
+  color: #333;
+  font-weight: bold;
+  padding: 12px;
+  text-align: left;
+}
+
+/* Style for table rows */
+td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Hover effect for table rows */
+tr:hover {
+  background-color: #7a5b5b;
+}
+
+/* Style for the scrollable container */
+.scrollable {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Responsive styling for small screens */
+@media (max-width: 600px) {
+  th,
+  td {
+    font-size: 14px;
+  }
+}
