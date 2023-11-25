@@ -565,7 +565,7 @@ main {
     flex-direction: column;
     background-color: #102533; /*Background color for the mobile menu */
     position: absolute;
-    top: 62px; /* Adjust as needed to position the mobile menu */
+    top: 60px; /* Adjust as needed to position the mobile menu */
     right: 0;
     width: 100%;
     padding: 20px;
