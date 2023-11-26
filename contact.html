@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VOLUNTEERS WITHOUT FRONTIERS (VWF) - Programs</title>
+    <title>VOLUNTEERS WITHOUT FRONTIERS (VWF) - Contact</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
       rel="stylesheet"
@@ -41,26 +41,30 @@
     </header>
 
     <main>
-      <div class="gallery">
-        <img src="./image4.jpg" alt="" srcset="" class="gallery-img" />
-        <img src="./image2.jpg" alt="image1" srcset="" class="gallery-img" />
-        <img src="./image3.jpg" alt="" srcset="" class="gallery-img" />
-        <img src="image5.jpg" alt="" srcset="" class="gallery-img" />
-        <img src="./image1.jpg" alt="image1" srcset="" class="gallery-img" />
-        <img src="./image6.jpg" alt="" class="gallery-img" />
-        <img src="./image7.jpg" alt="" class="gallery-img" />
-        <img src="./image8.jpg" alt="" class="gallery-img" />
-        <img src="./image11.jpg" alt="" srcset="" class="gallery-img" />
-        <img src="./image10.jpg" alt="" srcset="" class="gallery-img" />
+      <div class="contact-container">
+        <h1>Contact Us</h1>
+
+        <form action="#" method="post">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+
+          <button type="submit">Send Message</button>
+        </form>
+
+        <!-- Success message div -->
+        <div id="successMessage" class="success-message">
+          Message sent successfully!
+        </div>
       </div>
     </main>
 
-    <!-- Modal for displaying the enlarged image -->
-    <div class="modal" id="imageModal">
-      <span class="close" id="closeModal">&times;</span>
-      <img class="modal-content" id="modalImage" />
-    </div>
-
+    <br />
     <footer>
       <div class="footer-container">
         <section class="footer-column">
@@ -76,6 +80,7 @@
             <li><a href="/">Home</a></li>
             <li><a href="#about-us-desc">About</a></li>
             <li><a href="programs.html">Programs</a></li>
+            <li><a href="resources.html">Resources</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </section>
@@ -101,6 +106,32 @@
       <p class="footer-bottom" id="footer-year"></p>
     </footer>
 
-    <script src="./script.js"></script>
+    <!-- Add this script at the end of your HTML body -->
+    <!-- Update the script at the end of your HTML body -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        const successMessage = document.getElementById('successMessage');
+
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
+
+          // Simulate form submission (you can replace this with your actual form submission logic)
+          // For demonstration purposes, show the success message after a short delay
+          setTimeout(function () {
+            // Display the success message
+            successMessage.style.display = 'block';
+
+            // Reset the form after displaying the success message (you can remove this if not needed)
+            form.reset();
+
+            // Hide the success message after a few seconds
+            setTimeout(function () {
+              successMessage.style.display = 'none';
+            }, 3000); // Adjust the delay as needed (e.g., 3000 milliseconds = 3 seconds)
+          }, 1000); // Adjust the delay as needed
+        });
+      });
+    </script>
   </body>
 </html>
