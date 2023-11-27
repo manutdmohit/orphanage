@@ -502,7 +502,7 @@ img {
 /* Gallery image styles */
 .gallery img {
   max-width: 100%;
-  height: auto;
+  height: 100%;
   cursor: pointer;
 }
 
