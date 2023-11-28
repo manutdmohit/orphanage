@@ -177,11 +177,6 @@ img.image {
   grid-gap: 10px;
 }
 
-.gallery img {
-  width: 100%;
-  height: auto;
-}
-
 .map-container {
   display: flex;
   justify-content: center;
@@ -501,9 +496,10 @@ img {
 
 /* Gallery image styles */
 .gallery img {
-  max-width: 100%;
-  height: 100%;
-  cursor: pointer;
+  width: 250px; /* Adjust the width as needed */
+  height: 250px; /* Adjust the height as needed */
+  object-fit: cover; /* This property ensures the image covers the entire box, preserving its aspect ratio */
+  margin: 5px; /* Optional: Add margin between images */
 }
 
 .gallery img:hover {
@@ -557,7 +553,9 @@ main {
 
   .hamburger-icon {
     cursor: pointer;
-    text-align: right; /* Align the icon to the right */
+    text-align: right;
+    font-size: 20px;
+    margin-right: 22px;
   }
 
   .nav-links {
