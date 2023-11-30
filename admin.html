@@ -100,16 +100,15 @@
      <script>
   async function checkAuthentication() {
       try {
-       const response = await fetch('https://vwf-backend.cyclic.app/check-auth', {
+       const response = await fetch('https://vwf-backend.cyclic.app/profile', {
             method: 'GET',
             credentials: 'include',
           });
 
 
         const data = await response.json();
-        console.log(data);
 
-        if (data.authenticated) {
+        if (data) {
           // User is authenticated, redirect to the dashboard
           window.location.href = 'https://vwf.vercel.app/dashboard.html';
         } else{
