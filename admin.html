@@ -112,7 +112,11 @@
         if (data.authenticated) {
           // User is authenticated, redirect to the dashboard
           window.location.href = 'https://vwf.vercel.app/dashboard.html';
+        } else{
+          window.location.href = 'https://vwf.vercel.app/admin.html';
+
         }
+
       } catch (error) {
 
         console.error('Error checking authentication:', error);
