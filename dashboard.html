@@ -244,6 +244,17 @@
       async function fetchTotalChildren() {
         console.log('start');
         try {
+          const responses = await fetch(
+            'https://vwf-backend.cyclic.app/profile',
+            {
+              method: 'GET',
+              credentials: 'include',
+            }
+          );
+
+          const dt = await responses.json();
+          console.log({ dt });
+
           const response = await fetch(
             'https://vwf-backend.cyclic.app/api/v1/users',
             {
