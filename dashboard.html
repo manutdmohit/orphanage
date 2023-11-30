@@ -1,0 +1,634 @@
+<!-- dashboard.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      form {
+        display: none;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      /* Update the input width and padding */
+      input,
+      select {
+        width: 50%; /* Adjust the width as needed */
+        padding: 6px; /* Adjust the padding as needed */
+        box-sizing: border-box;
+      }
+
+      /* Adjust the button styling */
+      button {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 8px 16px; /* Adjust the padding as needed */
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button#delete {
+        background-color: rgb(214, 0, 0);
+        color: #fff;
+        padding: 8px 16px; /* Adjust the padding as needed */
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      /* Style the modal container */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 50%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      /* Style the modal content */
+      .modal-content {
+        background-color: #fefefe;
+        margin: 10% auto;
+        padding: 10px;
+        border: 1px solid #888;
+        width: 80%;
+        border-radius: 8px;
+      }
+
+      /* Style the close button */
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <!-- Your existing navigation links -->
+
+      <!-- Logout button in the navbar -->
+      <button id="logoutButton">Logout</button>
+    </nav>
+
+    <h1>Hello, Admin</h1>
+
+    <div id="totalChildren"></div>
+    <br />
+
+    <!-- Add a modal container -->
+    <div id="userModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="hideUserModal()">&times;</span>
+        <!-- Your existing form code goes here -->
+        <form id="userForm" style="display: block" onsubmit="submitForm(event)">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" />
+
+          <label for="username">Email:</label>
+          <input type="text" id="username" name="username" />
+
+          <label for="gender">Gender:</label>
+          <select id="gender" name="gender">
+            <option value="Select Gender">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+
+          <label for="address">Address:</label>
+          <input type="text" id="address" name="address" />
+
+          <label for="guardianName">Guardian Name:</label>
+          <input type="text" id="guardian_name" name="guardian_name" />
+
+          <label for="phone">Phone:</label>
+          <input type="text" id="phone" name="phone" />
+
+          <label for="role">Role:</label>
+          <select id="role" name="role">
+            <option value="Select Role">Select Role</option>
+            <option value="admin">Admin</option>
+            <option value="staff">Staff</option>
+            <option value="child">Child</option>
+          </select>
+
+          <br />
+          <br />
+          <!-- ... (existing form elements) ... -->
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="singleUserModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="hideSingleUserModal()">&times;</span>
+        <!-- Your existing form code goes here -->
+        <form
+          id="userForm"
+          style="display: block"
+          onsubmit="submitUserForm(event)"
+        >
+          <label for="name">Name:</label>
+          <input type="text" id="singleName" name="name" />
+
+          <label for="username">Email:</label>
+          <input type="text" id="singleUserName" name="username" />
+
+          <label for="gender">Gender:</label>
+          <select id="singleGender" name="gender">
+            <option value="Select Gender">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+
+          <label for="address">Address:</label>
+          <input type="text" id="singleAddress" name="address" />
+
+          <label for="guardianName">Guardian Name:</label>
+          <input type="text" id="single_guardian_name" name="guardian_name" />
+
+          <label for="phone">Phone:</label>
+          <input type="text" id="singlePhone" name="phone" />
+
+          <label for="role">Role:</label>
+          <select id="singleRole" name="role">
+            <option value="Select Role">Select Role</option>
+            <option value="admin">Admin</option>
+            <option value="staff">Staff</option>
+            <option value="child">Child</option>
+          </select>
+
+          <input type="hidden" id="userId" name="userId" value="" />
+
+          <br />
+          <br />
+          <!-- ... (existing form elements) ... -->
+          <button type="submit">Update</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Add User button -->
+    <button id="addUserButton">Add User</button> <br />
+    <br />
+
+    <!-- Add a search input field with onkeyup attribute -->
+    <input
+      type="text"
+      id="searchInput"
+      oninput="fetchTotalPerson()"
+      placeholder="Search by name or guardian name"
+      onkeyup="handleKeyPress(event)"
+    />
+
+    <button onclick="fetchTotalPerson()">Search</button>
+
+    <h2 id="totalPerson">Total Persons</h2>
+    <table id="personsTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Guardian Name</th>
+          <th>Address</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Gender</th>
+          <th>Action</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script>
+      async function fetchTotalChildren() {
+        try {
+          const response = await fetch('http://localhost:8000/api/v1/users', {
+            method: 'GET',
+            credentials: 'include',
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+
+            const admins = data.result.find((person) => person.role == 'admin');
+
+            const adminsCount = admins?.count ? admins.count : 0;
+
+            const staffs = data.result.find((person) => person.role == 'staff');
+
+            const staffsCount = staffs?.count ? staffs.count : 0;
+
+            const totalStaffsCount = adminsCount + staffsCount;
+
+            const childrens = data.result.find(
+              (person) => person.role == 'child'
+            );
+
+            const childrensCount = childrens?.count ? childrens.count : 0;
+
+            const totalChildrenElement =
+              document.getElementById('totalChildren');
+            totalChildrenElement.innerHTML = `Total Admins: ${adminsCount},   Total Staffs: ${totalStaffsCount}, Total Children: ${childrensCount}`;
+          } else {
+            window.location.href = 'http://localhost:5500/admin.html';
+
+            console.error(
+              'Error fetching total children:',
+              response.statusText
+            );
+          }
+        } catch (error) {
+          console.error('Error fetching total children:', error);
+        }
+      }
+
+      // Call the fetchTotalChildren function when the page loads
+      window.onload = fetchTotalChildren;
+
+      async function fetchTotalPerson() {
+        try {
+          const response = await fetch(
+            'http://localhost:8000/api/v1/users/all',
+            {
+              method: 'POST',
+              credentials: 'include',
+            }
+          );
+
+          if (response.ok) {
+            let res;
+            let data;
+            res = await response.json();
+            data = res;
+
+            const users = data.users;
+
+            let searchTerm;
+            searchTerm = document.getElementById('searchInput').value.trim();
+
+            if (searchTerm) {
+              data = users.filter(
+                (user) =>
+                  user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  user.guardian_name
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase())
+              );
+            } else {
+              data = users;
+            }
+
+            const totalPersonElement = document.getElementById('totalPerson');
+            totalPersonElement.innerHTML = `Total Person: ${data.length}`;
+
+            const personsTableBody = document.querySelector(
+              '#personsTable tbody'
+            );
+            personsTableBody.innerHTML = '';
+
+            data.forEach((person) => {
+              const row = document.createElement('tr');
+              row.innerHTML = `
+                <td>${person.name}</td>
+                <td>${
+                  person.guardian_name ? person.guardian_name : 'Not Found'
+                }</td>
+                <td>${person.address ? person.address : 'Not Found'}</td>
+                <td>${person.phone}</td>
+                <td>${person.username}</td>
+                <td>${person.role}</td>
+                <td>${person.gender}</td>
+             <td><button onclick="editPerson('${
+               person._id
+             }')">Edit</button></td>
+              <td>${
+                person.role !== 'admin'
+                  ? `<button id="delete" onclick="deletePerson('${person._id}')">Del</button>`
+                  : ''
+              }</td>`;
+
+              personsTableBody.appendChild(row);
+            });
+          } else {
+            window.location.href = 'http://localhost:5500/admin.html';
+
+            console.error(
+              'Error fetching total children:',
+              response.statusText
+            );
+          }
+        } catch (error) {
+          console.error('Error fetching total children:', error);
+        }
+      }
+
+      // Call the fetchTotalChildren function when the page loads
+      fetchTotalPerson();
+
+      // Function to show the modal
+      function showUserModal() {
+        const userModal = document.getElementById('userModal');
+        userModal.style.display = 'block';
+      }
+
+      // Function to hide the modal
+      function hideUserModal() {
+        const userModal = document.getElementById('userModal');
+        userModal.style.display = 'none';
+      }
+
+      // Function to show the modal
+      function singleUserModal() {
+        const userModal = document.getElementById('singleUserModal');
+        userModal.style.display = 'block';
+      }
+
+      // Function to hide the modal
+      function hideSingleUserModal() {
+        console.log('clicked');
+        const userModal = document.getElementById('singleUserModal');
+        userModal.style.display = 'none';
+      }
+
+      // Click event listener for the "Add User" button
+      const addUserButton = document.getElementById('addUserButton');
+      addUserButton.addEventListener('click', showUserModal);
+
+      // Click event listener for the close button in the modal
+      const closeButton = document.querySelector('#userModal .close');
+      closeButton.addEventListener('click', hideUserModal);
+
+      // Click event listener for the close button in the modal
+      const closeSingleUserEditButton = document.querySelector(
+        '#singleUserModal .close'
+      );
+      closeSingleUserEditButton.addEventListener('click', hideSingleUserModal);
+
+      // Click event listener for the form's submit button (to hide the modal after submission)
+      const submitButton = document.querySelector(
+        '#userForm button[type="submit"]'
+      );
+      submitButton.addEventListener('click', hideUserModal);
+
+      // Function to handle form submission
+      async function submitForm(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const nameField = document.getElementById('name');
+        const genderField = document.getElementById('gender');
+        const roleField = document.getElementById('role');
+
+        if (!nameField.value.trim()) {
+          alert('Name is required'); // You can customize the validation error handling
+          return; // Stop form submission if validation fails
+        }
+
+        if (genderField.value === 'Select Gender') {
+          alert('Gender is required'); // You can customize the validation error handling
+          return; // Stop form submission if validation fails
+        }
+
+        if (roleField.value === 'Select Role') {
+          alert('Role is required'); // You can customize the validation error handling
+          return; // Stop form submission if validation fails
+        }
+
+        // Validate the "email" field
+        const emailField = document.getElementById('username');
+        const emailValue = emailField.value.trim();
+
+        // Regular expression for a simple email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (emailValue && !emailRegex.test(emailValue)) {
+          alert('Please enter a valid email address'); // You can customize the validation error handling
+          return; // Stop form submission if validation fails
+        }
+
+        // Retrieve form data
+        const formData = {
+          name: document.getElementById('name').value,
+          username: document.getElementById('username').value,
+          gender: document.getElementById('gender').value,
+          address: document.getElementById('address').value,
+          guardian_name: document.getElementById('guardian_name').value,
+          phone: document.getElementById('phone').value,
+          role: document.getElementById('role').value,
+        };
+
+        try {
+          const response = await fetch('http://localhost:8000/api/v1/users', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+            credentials: 'include',
+          });
+
+          if (response.ok) {
+            alert('Person added successfully');
+
+            // Refresh the data after successful submission
+            window.location.href = 'http://localhost:5500/dashboard.html';
+          } else {
+            console.error('Error submitting form:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error submitting form:', error);
+        }
+      }
+
+      // Function to handle editing a person
+      async function editPerson(personId) {
+        try {
+          const response = await fetch(
+            `http://localhost:8000/api/v1/users/${personId}`,
+            {
+              method: 'GET',
+              credentials: 'include',
+            }
+          );
+
+          if (response.ok) {
+            const userData = await response.json();
+
+            // Populate the form in the modal with the retrieved data
+            document.getElementById('singleName').value = userData.user.name;
+            document.getElementById('singleUserName').value =
+              userData.user.username;
+            document.getElementById('singleGender').value =
+              userData.user.gender;
+            document.getElementById('singleAddress').value =
+              userData.user.address;
+            document.getElementById('single_guardian_name').value =
+              userData.user.guardian_name;
+            document.getElementById('singlePhone').value = userData.user.phone;
+            document.getElementById('singleRole').value = userData.user.role;
+
+            //  Set the userId in the hidden input field
+            document.getElementById('userId').value = userData.user._id;
+
+            // Show the modal
+            singleUserModal();
+          } else {
+            console.error('Error fetching user data:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      }
+
+      async function submitUserForm(event) {
+        event.preventDefault();
+
+        // Extract user details from the form
+        const userId = document.getElementById('userId').value;
+        console.log({ userId });
+
+        const formData = {
+          name: document.getElementById('singleName').value,
+          username: document.getElementById('singleUserName').value,
+          gender: document.getElementById('singleGender').value,
+          address: document.getElementById('singleAddress').value,
+          guardian_name: document.getElementById('single_guardian_name').value,
+          phone: document.getElementById('singlePhone').value,
+          role: document.getElementById('singleRole').value,
+        };
+
+        console.log({ formData });
+
+        try {
+          let response;
+
+          // Check if it's an update (PUT) or create (POST) operation
+          if (userId) {
+            // It's an update, send a PUT request
+            response = await fetch(
+              `http://localhost:8000/api/v1/users/${userId}`,
+              {
+                method: 'PATCH',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(formData),
+              }
+            );
+
+            console.log(response);
+          }
+
+          if (response.ok) {
+            // Handle success, e.g., redirect to the dashboard
+            window.location.href = 'http://localhost:5500/dashboard.html';
+          } else {
+            console.error('Error submitting form:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error submitting form:', error);
+        }
+      }
+
+      // Delete User
+      async function deletePerson(personId) {
+        // Display a confirmation dialog
+        const isConfirmed = confirm(
+          'Are you sure you want to delete this user?'
+        );
+
+        if (isConfirmed) {
+          try {
+            const response = await fetch(
+              `http://localhost:8000/api/v1/users/${personId}`,
+              {
+                method: 'DELETE',
+                credentials: 'include',
+              }
+            );
+
+            if (response.ok) {
+              window.location.href = 'http://localhost:5500/dashboard.html';
+            } else {
+              console.error('Error deleting user:', response.statusText);
+            }
+          } catch (error) {
+            console.error('Error deleting user:', error);
+          }
+        }
+      }
+
+      async function logout() {
+        try {
+          const response = await fetch('http://localhost:8000/logout', {
+            method: 'GET',
+            credentials: 'include',
+          });
+
+          if (response.ok) {
+            // Redirect to the login page after successful logout
+            window.location.href = 'http://localhost:5500/admin.html';
+          } else {
+            console.error('Error logging out:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error logging out:', error);
+        }
+      }
+
+      // Add click event listener to the logout button
+      const logoutButton = document.getElementById('logoutButton');
+      logoutButton.addEventListener('click', logout);
+
+      // Function to handle key press in the search input
+      function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+          console.log('Hi');
+          // If Enter key is pressed, trigger the filterTable function
+          fetchTotalPerson();
+        }
+      }
+    </script>
+  </body>
+</html>
