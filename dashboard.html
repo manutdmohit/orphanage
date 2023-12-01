@@ -241,29 +241,31 @@
     </table>
 
     <script>
+      const token = localStorage.getItem('token');
+      function checkAuthentication() {
+        const token = localStorage.getItem('token');
+
+        if (!token && window.location.pathname !== '/admin.html') {
+          // No token and not on the login page, redirect to login
+          window.location.href = 'https://vwf.vercel.app/admin.html';
+        }
+      }
+
+      // Call the checkAuthentication function when the page loads
+      checkAuthentication();
+
       async function fetchTotalChildren() {
-        console.log('start');
         try {
-          const responses = await fetch(
-            'https://vwf-backend.cyclic.app/profile',
-            {
-              method: 'GET',
-              credentials: 'include',
-            }
-          );
-
-          const dt = await responses.json();
-          console.log({ dt });
-
           const response = await fetch(
             'https://vwf-backend.cyclic.app/api/v1/users',
             {
               method: 'GET',
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
               credentials: 'include',
             }
           );
-
-          console.log('end');
 
           if (response.ok) {
             const data = await response.json();
@@ -301,7 +303,7 @@
       }
 
       // Call the fetchTotalChildren function when the page loads
-      window.onload = fetchTotalChildren;
+      fetchTotalChildren();
 
       async function fetchTotalPerson() {
         try {
@@ -309,6 +311,9 @@
             'https://vwf-backend.cyclic.app/api/v1/users/all',
             {
               method: 'POST',
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
               credentials: 'include',
             }
           );
@@ -481,6 +486,7 @@
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
               },
               body: JSON.stringify(formData),
               credentials: 'include',
@@ -507,6 +513,9 @@
             `https://vwf-backend.cyclic.app/api/v1/users/${personId}`,
             {
               method: 'GET',
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
               credentials: 'include',
             }
           );
@@ -568,6 +577,7 @@
                 method: 'PATCH',
                 headers: {
                   'Content-Type': 'application/json',
+                  Authorization: `Bearer ${token}`,
                 },
                 credentials: 'include',
                 body: JSON.stringify(formData),
@@ -599,6 +609,9 @@
               `https://vwf-backend.cyclic.app/api/v1/users/${personId}`,
               {
                 method: 'DELETE',
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
                 credentials: 'include',
               }
             );
@@ -626,6 +639,7 @@
 
           if (response.ok) {
             // Redirect to the login page after successful logout
+            localStorage.setItem('token', '');
             window.location.href = 'https://vwf.vercel.app/admin.html';
           } else {
             console.error('Error logging out:', response.statusText);
