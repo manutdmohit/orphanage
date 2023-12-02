@@ -243,6 +243,7 @@
     <script src="config.js"></script>
     <script>
       const backendUrl = window.config.backendUrl;
+      const frontendUrl = window.config.frontendUrl;
 
       const token = localStorage.getItem('token');
       function checkAuthentication() {
@@ -250,7 +251,7 @@
 
         if (!token && window.location.pathname !== '/admin.html') {
           // No token and not on the login page, redirect to login
-          window.location.href = 'https://vwf.vercel.app/admin.html';
+          window.location.href = `$frontendUrl}/admin.html`;
         }
       }
 
@@ -290,8 +291,6 @@
               document.getElementById('totalChildren');
             totalChildrenElement.innerHTML = `Total Admins: ${adminsCount},   Total Staffs: ${totalStaffsCount}, Total Children: ${childrensCount}`;
           } else {
-            // window.location.href = 'https://vwf.vercel.app/admin.html';
-
             console.error(
               'Error fetching total children:',
               response.statusText
@@ -370,8 +369,6 @@
               personsTableBody.appendChild(row);
             });
           } else {
-            // window.location.href = 'https://vwf.vercel.app/admin.html';
-
             console.error(
               'Error fetching total children:',
               response.statusText
@@ -491,7 +488,7 @@
             alert('Person added successfully');
 
             // Refresh the data after successful submission
-            window.location.href = 'https://vwf.vercel.app/dashboard.html';
+            window.location.href = `$frontendUrl}/dashboard.html`;
           } else {
             console.error('Error submitting form:', response.statusText);
           }
@@ -562,9 +559,8 @@
         try {
           let response;
 
-          // Check if it's an update (PUT) or create (POST) operation
           if (userId) {
-            // It's an update, send a PUT request
+            // It's an update, send a PATCH request
             response = await fetch(`${backendUrl}/api/v1/users/${userId}`, {
               method: 'PATCH',
               headers: {
@@ -577,8 +573,9 @@
           }
 
           if (response.ok) {
+            alert('Person updated successfully');
             // Handle success, e.g., redirect to the dashboard
-            window.location.href = 'https://vwf.vercel.app/dashboard.html';
+            window.location.href = `$frontendUrl}/dashboard.html`;
           } else {
             console.error('Error submitting form:', response.statusText);
           }
@@ -608,7 +605,7 @@
             );
 
             if (response.ok) {
-              window.location.href = 'https://vwf.vercel.app/dashboard.html';
+              window.location.href = `$frontendUrl}/dashboard.html`;
             } else {
               console.error('Error deleting user:', response.statusText);
             }
@@ -628,7 +625,7 @@
           if (response.ok) {
             // Redirect to the login page after successful logout
             localStorage.setItem('token', '');
-            window.location.href = 'https://vwf.vercel.app/admin.html';
+            window.location.href = `$frontendUrl}'https://vwf.vercel.app/admin.html`;
           } else {
             console.error('Error logging out:', response.statusText);
           }

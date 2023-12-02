@@ -99,16 +99,17 @@
     <script src="config.js"></script>
     <script>
       const backendUrl = window.config.backendUrl;
+      const frontendUrl = window.config.frontendUrl;
 
       async function checkAuthentication() {
         const token = localStorage.getItem('token');
 
         if (!token && window.location.pathname !== '/admin.html') {
           // No token and not on the login page, redirect to login
-          window.location.href = 'http://vwf.vercel.app/admin.html';
+          window.location.href = `${frontendUrl}/admin.html`;
         } else if (token && window.location.pathname === '/admin.html') {
           // Token exists, and on the login page, redirect to dashboard
-          window.location.href = 'http://vwf.vercel.app/dashboard.html';
+          window.location.href = `$frontendUrl}/dashboard.html`;
         }
       }
 
@@ -144,7 +145,7 @@
             localStorage.setItem('token', token);
 
             // Redirect to the dashboard
-            window.location.href = 'http://vwf.vercel.app/dashboard.html';
+            window.location.href = `$frontendUrl}/dashboard.html`;
           } else {
             // Authentication failed, handle error
             console.error('Authentication failed:', data.message);
