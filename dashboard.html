@@ -251,7 +251,7 @@
 
         if (!token && window.location.pathname !== '/admin.html') {
           // No token and not on the login page, redirect to login
-          window.location.href = `$frontendUrl}/admin.html`;
+          window.location.href = `${frontendUrl}/admin.html`;
         }
       }
 
@@ -488,7 +488,7 @@
             alert('Person added successfully');
 
             // Refresh the data after successful submission
-            window.location.href = `$frontendUrl}/dashboard.html`;
+            window.location.href = `${frontendUrl}/dashboard.html`;
           } else {
             console.error('Error submitting form:', response.statusText);
           }
@@ -575,7 +575,7 @@
           if (response.ok) {
             alert('Person updated successfully');
             // Handle success, e.g., redirect to the dashboard
-            window.location.href = `$frontendUrl}/dashboard.html`;
+            window.location.href = `${frontendUrl}/dashboard.html`;
           } else {
             console.error('Error submitting form:', response.statusText);
           }
@@ -605,7 +605,7 @@
             );
 
             if (response.ok) {
-              window.location.href = `$frontendUrl}/dashboard.html`;
+              window.location.href = `${frontendUrl}/dashboard.html`;
             } else {
               console.error('Error deleting user:', response.statusText);
             }
@@ -625,7 +625,7 @@
           if (response.ok) {
             // Redirect to the login page after successful logout
             localStorage.setItem('token', '');
-            window.location.href = `$frontendUrl}'https://vwf.vercel.app/admin.html`;
+            window.location.href = `${frontendUrl}/admin.html`;
           } else {
             console.error('Error logging out:', response.statusText);
           }
