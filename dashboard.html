@@ -7,6 +7,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
     <style>
+      /* Reset default margin and padding */
+      body,
+      header,
+      nav,
+      ul,
+      li,
+      footer,
+      h1,
+      p {
+        margin: 0;
+        padding: 0;
+        font-family: 'Barlow', sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      nav {
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+      }
+
+      #logoutButton {
+        padding: 8px 16px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        position: absolute;
+        top: 15px;
+        right: 10px;
+      }
+
+      h1,
+      #totalChildren,
+      #addUserButton,
+      #searchInput,
+      #totalPerson {
+        margin: 10px;
+      }
+
       table {
         width: 100%;
         border-collapse: collapse;
@@ -100,17 +159,12 @@
     </style>
   </head>
   <body>
-    <nav>
-      <!-- Your existing navigation links -->
-
-      <!-- Logout button in the navbar -->
-      <button id="logoutButton">Logout</button>
-    </nav>
+    <!-- Logout button on the right side -->
+    <button id="logoutButton">Logout</button>
 
     <h1>Hello, Admin</h1>
 
-    <div id="totalChildren"></div>
-    <br />
+    <div id="totalData"></div>
 
     <!-- Add a modal container -->
     <div id="userModal" class="modal">
@@ -209,7 +263,6 @@
 
     <!-- Add User button -->
     <button id="addUserButton">Add User</button> <br />
-    <br />
 
     <!-- Add a search input field with onkeyup attribute -->
     <input
@@ -285,9 +338,9 @@
 
             const childrensCount = childrens?.count ? childrens.count : 0;
 
-            const totalChildrenElement =
-              document.getElementById('totalChildren');
-            totalChildrenElement.innerHTML = `Total Admins: ${adminsCount},   Total Staffs: ${staffsCount}, Total Children: ${childrensCount}`;
+            const totalDataElement = document.getElementById('totalData');
+
+            totalDataElement.innerHTML = `Total Admins: ${adminsCount},   Total Staffs: ${staffsCount}, Total Children: ${childrensCount}`;
           } else {
             console.error(
               'Error fetching total children:',
