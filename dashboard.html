@@ -258,7 +258,7 @@
       // Call the checkAuthentication function when the page loads
       checkAuthentication();
 
-      async function fetchTotalChildren() {
+      async function fetchTotalPersonData() {
         try {
           const response = await fetch(`${backendUrl}/api/v1/users`, {
             method: 'GET',
@@ -279,8 +279,6 @@
 
             const staffsCount = staffs?.count ? staffs.count : 0;
 
-            const totalStaffsCount = adminsCount + staffsCount;
-
             const childrens = data.result.find(
               (person) => person.role == 'child'
             );
@@ -289,7 +287,7 @@
 
             const totalChildrenElement =
               document.getElementById('totalChildren');
-            totalChildrenElement.innerHTML = `Total Admins: ${adminsCount},   Total Staffs: ${totalStaffsCount}, Total Children: ${childrensCount}`;
+            totalChildrenElement.innerHTML = `Total Admins: ${adminsCount},   Total Staffs: ${staffsCount}, Total Children: ${childrensCount}`;
           } else {
             console.error(
               'Error fetching total children:',
@@ -302,7 +300,7 @@
       }
 
       // Call the fetchTotalChildren function when the page loads
-      fetchTotalChildren();
+      fetchTotalPersonData();
 
       async function fetchTotalPerson() {
         try {
