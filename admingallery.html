@@ -110,24 +110,62 @@
       .next {
         right: 16px;
       }
+
+      /* File upload styles */
+      .add-image-container {
+        padding: 16px;
+        text-align: center;
+      }
+
+      #addImageInput {
+        display: none;
+      }
+
+      #addImageButton {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-bottom: 16px;
+      }
     </style>
   </head>
   <body>
-    <div class="gallery" id="imageGallery">
-      <!-- Add your images here -->
-      <div class="gallery-item">
-        <img src="./assets/20231126_091223.jpg" alt="Image 1" />
-        <i class="fas fa-trash delete-icon" onclick="deleteImage(0)"></i>
+    <!-- Add Image Container -->
+    <div class="add-image-container">
+      <input
+        type="file"
+        id="addImageInput"
+        accept="image/*"
+        onchange="addImage(event)"
+      />
+      <button
+        id="addImageButton"
+        onclick="document.getElementById('addImageInput').click()"
+      >
+        Upload Image
+      </button>
+    </div>
+
+    <div class="gallery-container">
+      <div class="gallery" id="imageGallery">
+        <!-- Add your images here -->
+        <div class="gallery-item">
+          <img src="./assets/20231126_091223.jpg" alt="Image 1" />
+          <i class="fas fa-trash delete-icon" onclick="deleteImage(0)"></i>
+        </div>
+        <div class="gallery-item">
+          <img src="./assets/20231126_091228.jpg" alt="Image 2" />
+          <i class="fas fa-trash delete-icon" onclick="deleteImage(1)"></i>
+        </div>
+        <div class="gallery-item">
+          <img src="./assets/20231126_091245.jpg" alt="Image 3" />
+          <i class="fas fa-trash delete-icon" onclick="deleteImage(2)"></i>
+        </div>
+        <!-- Add more images as needed -->
       </div>
-      <div class="gallery-item">
-        <img src="./assets/20231126_091228.jpg" alt="Image 2" />
-        <i class="fas fa-trash delete-icon" onclick="deleteImage(1)"></i>
-      </div>
-      <div class="gallery-item">
-        <img src="./assets/20231126_091245.jpg" alt="Image 3" />
-        <i class="fas fa-trash delete-icon" onclick="deleteImage(2)"></i>
-      </div>
-      <!-- Add more images as needed -->
     </div>
 
     <!-- Modal for displaying the enlarged image -->
@@ -138,35 +176,69 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
     <script>
-      // Get references to the gallery images, modal elements, and current image index
       const galleryImages = document.querySelectorAll('.gallery img');
-
       const modal = document.getElementById('imageModal');
       const modalImage = document.getElementById('modalImage');
       const closeModalButton = document.getElementById('closeModal');
-
       let currentImageIndex = 0;
 
-      // Function to display the current image in the modal
       function showImageInModal() {
         modalImage.src = galleryImages[currentImageIndex].src;
         modal.style.display = 'flex';
       }
 
-      // Function to close the modal
       function closeModal() {
         modal.style.display = 'none';
       }
 
-      // Function to delete an image
       function deleteImage(index) {
-        // Remove the image from the gallery and update the display
-        const galleryItem = galleryImages[index].closest('.gallery-item');
-
-        galleryItem.remove();
+        // Show confirmation prompt before deleting
+        const confirmDelete = confirm(
+          'Are you sure you want to delete this image?'
+        );
+        if (confirmDelete) {
+          // Remove the image from the gallery and update the display
+          const galleryItem = galleryImages[index].closest('.gallery-item');
+          galleryItem.remove();
+        }
       }
 
-      // Function to navigate to the next image in the modal
+      function addImage(event) {
+        const files = event.target.files;
+
+        // Display a preview for each selected image
+        for (const file of files) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const galleryItem = document.createElement('div');
+            galleryItem.className = 'gallery-item';
+            const image = document.createElement('img');
+            image.src = e.target.result;
+            image.alt = 'New Image';
+            galleryItem.appendChild(image);
+            const deleteIcon = document.createElement('i');
+            deleteIcon.className = 'fas fa-trash delete-icon';
+            deleteIcon.onclick = function () {
+              deleteImage(galleryItem);
+            };
+            galleryItem.appendChild(deleteIcon);
+            document.getElementById('imageGallery').appendChild(galleryItem);
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+
+      function deleteImage(galleryItem) {
+        // Show confirmation prompt before deleting
+        const confirmDelete = confirm(
+          'Are you sure you want to delete this image?'
+        );
+        if (confirmDelete) {
+          // Remove the image from the gallery and update the display
+          galleryItem.remove();
+        }
+      }
+
       function nextImageInModal() {
         currentImageIndex++;
         if (currentImageIndex >= galleryImages.length) {
@@ -175,7 +247,6 @@
         showImageInModal();
       }
 
-      // Function to navigate to the previous image in the modal
       function prevImageInModal() {
         currentImageIndex--;
         if (currentImageIndex < 0) {
@@ -184,7 +255,6 @@
         showImageInModal();
       }
 
-      // Attach keyboard event listeners for modal navigation
       document.addEventListener('keydown', function (event) {
         if (modal.style.display === 'flex') {
           if (event.key === 'ArrowRight') {
@@ -197,7 +267,6 @@
         }
       });
 
-      // Open modal on image click
       galleryImages.forEach((image, index) => {
         image.addEventListener('click', () => {
           currentImageIndex = index;
@@ -205,10 +274,8 @@
         });
       });
 
-      // Close modal on close button click
       closeModalButton.addEventListener('click', closeModal);
 
-      // Close modal when clicking outside the image
       modal.addEventListener('click', function (event) {
         if (event.target === modal) {
           closeModal();
