@@ -103,13 +103,40 @@
 
       async function checkAuthentication() {
         const token = localStorage.getItem('token');
+        if (token && window.location.pathname === '/admin.html') {
+          // Token exists and on the login page, check token validity
+          try {
+            const response = await fetch(`${backendUrl}/check-auth`, {
+              method: 'GET',
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              credentials: 'include',
+            });
 
-        if (!token && window.location.pathname !== '/admin.html') {
+            if (response.ok) {
+              // Token is valid, redirect to dashboard
+              window.location.href = `${frontendUrl}/dashboard.html`;
+            } else {
+              // Token is invalid, stay on the login page
+              // console.log('Authentication failed. Redirecting to login page');
+              // console.log('Response status:', response.status);
+              // console.log('Response text:', await response.text());
+
+              localStorage.removeItem('token');
+            }
+          } catch (error) {
+            console.error('Error checking authentication:', error);
+            localStorage.removeItem('token');
+          }
+        } else if (
+          !localStorage.getItem('token') &&
+          window.location.pathname !== '/admin.html'
+        ) {
+          localStorage.removeItem('token');
+
           // No token and not on the login page, redirect to login
           window.location.href = `${frontendUrl}/admin.html`;
-        } else if (token && window.location.pathname === '/admin.html') {
-          // Token exists, and on the login page, redirect to dashboard
-          window.location.href = `${frontendUrl}/dashboard.html`;
         }
       }
 

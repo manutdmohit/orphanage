@@ -344,12 +344,52 @@
       const frontendUrl = window.config.frontendUrl;
 
       const token = localStorage.getItem('token');
-      function checkAuthentication() {
-        const token = localStorage.getItem('token');
 
-        if (!token && window.location.pathname !== '/admin.html') {
-          // No token and not on the login page, redirect to login
+      async function checkAuthentication() {
+        try {
+          const response = await fetch(`${backendUrl}/check-auth`, {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            credentials: 'include',
+          });
+
+          if (!response.ok) {
+            console.log(
+              'Authentication failed. Response status:',
+              response.status
+            );
+            console.log('Response text:', await response.text());
+
+            if (response.status === 401) {
+              // Handle token refresh or ask the user to log in again
+              console.log(
+                'Token expired or invalid. Redirecting to login page.'
+              );
+              localStorage.removeItem('token');
+            } else {
+              // Handle other cases as needed
+              console.log(
+                'Other authentication failure. Redirecting to login page.'
+              );
+              localStorage.removeItem('token');
+            }
+          }
+        } catch (error) {
+          console.error('Error fetching data:', error);
+          console.log('Redirecting to login page due to an error');
+
+          localStorage.removeItem('token');
+        }
+
+        if (
+          !localStorage.getItem('token') &&
+          window.location.pathname !== '/admin.html'
+        ) {
+          console.log('Redirecting to login page');
           window.location.href = `${frontendUrl}/admin.html`;
+          return;
         }
       }
 
