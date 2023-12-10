@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Meta information -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Image Gallery with Navigation</title>
+
+    <!-- External stylesheet for Font Awesome icons -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
 
+    <!-- Internal stylesheet for custom styles -->
     <style>
+      /* CSS Styles */
       body {
         font-family: 'Arial', sans-serif;
         margin: 0;
@@ -25,9 +30,10 @@
 
       .gallery {
         display: flex;
-        gap: 16px;
+        flex-wrap: wrap; /* Allow images to wrap to the next line */
+        gap: 25px;
         padding: 16px;
-        transition: transform 0.3s ease-in-out;
+        justify-content: center; /* Center the images horizontally */
       }
 
       .gallery-item {
@@ -54,7 +60,7 @@
         position: absolute;
         top: 8px;
         right: 8px;
-        color: #fff;
+        color: #ff0e0e;
         cursor: pointer;
         font-size: 16px;
         display: none;
@@ -130,131 +136,219 @@
         cursor: pointer;
         margin-bottom: 16px;
       }
+
+      span#closeModal.close {
+        position: absolute;
+        top: 125px;
+        right: 150px;
+        cursor: pointer;
+        font-size: 25px;
+        color: #cd0909;
+      }
     </style>
   </head>
+
   <body>
     <!-- Add Image Container -->
     <div class="add-image-container">
+      <!-- File input for uploading images -->
       <input
         type="file"
         id="addImageInput"
         accept="image/*"
+        multiple
         onchange="addImage(event)"
       />
+      <!-- Button to trigger file input -->
       <button
         id="addImageButton"
         onclick="document.getElementById('addImageInput').click()"
       >
-        Upload Image
+        Upload Image(s)
       </button>
     </div>
 
+    <!-- Container for displaying the image gallery -->
     <div class="gallery-container">
-      <div class="gallery" id="imageGallery">
-        <!-- Add your images here -->
-        <div class="gallery-item">
-          <img src="./assets/20231126_091223.jpg" alt="Image 1" />
-          <i class="fas fa-trash delete-icon" onclick="deleteImage(0)"></i>
-        </div>
-        <div class="gallery-item">
-          <img src="./assets/20231126_091228.jpg" alt="Image 2" />
-          <i class="fas fa-trash delete-icon" onclick="deleteImage(1)"></i>
-        </div>
-        <div class="gallery-item">
-          <img src="./assets/20231126_091245.jpg" alt="Image 3" />
-          <i class="fas fa-trash delete-icon" onclick="deleteImage(2)"></i>
-        </div>
-        <!-- Add more images as needed -->
-      </div>
+      <!-- Dynamic gallery content will be added here -->
+      <div class="gallery" id="imageGallery"></div>
     </div>
 
-    <!-- Modal for displaying the enlarged image -->
+    <!-- Modal for displaying enlarged image -->
     <div class="lightbox" id="imageModal">
+      <!-- Close button for the modal -->
       <span class="close" id="closeModal">&times;</span>
+      <!-- Image content within the modal -->
       <img class="modal-content" id="modalImage" />
+      <!-- Navigation arrows within the modal -->
+      <div class="nav-arrow prev" onclick="prevImageInModal()">&#10094;</div>
+      <div class="nav-arrow next" onclick="nextImageInModal()">&#10095;</div>
     </div>
 
+    <!-- External configuration script -->
+    <script src="./config.js"></script>
+    <!-- External Font Awesome JavaScript library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <!-- Inline JavaScript code for custom functionality -->
     <script>
-      const galleryImages = document.querySelectorAll('.gallery img');
+      // Global variables for backend and frontend URLs
+      const backendUrl = window.config.backendUrl;
+      const frontendUrl = window.config.frontendUrl;
+
+      // DOM elements for modal and image display
       const modal = document.getElementById('imageModal');
       const modalImage = document.getElementById('modalImage');
       const closeModalButton = document.getElementById('closeModal');
+
+      // Index of the currently displayed image
       let currentImageIndex = 0;
 
-      function showImageInModal() {
-        modalImage.src = galleryImages[currentImageIndex].src;
+      // Function to handle image upload
+      async function addImage(event) {
+        const files = event.target.files;
+
+        if (files.length === 0) {
+          return;
+        }
+
+        const formData = new FormData();
+
+        for (const file of files) {
+          formData.append('images', file);
+        }
+
+        try {
+          const response = await fetch(`${backendUrl}/api/v1/gallery`, {
+            method: 'POST',
+            body: formData,
+          });
+
+          if (response.ok) {
+            const result = await response.json();
+
+            fetchImages();
+          } else {
+            console.error('Failed to upload image');
+          }
+        } catch (error) {
+          console.error('Error during fetch:', error);
+        }
+      }
+
+      // Array to store gallery images
+      let galleryImages = [];
+
+      // Function to fetch and display images from the backend
+      async function fetchImages() {
+        try {
+          const response = await fetch(`${backendUrl}/api/v1/gallery`);
+
+          if (response.ok) {
+            const galleryData = await response.json();
+
+            imageGallery = document.getElementById('imageGallery');
+            imageGallery.innerHTML = '';
+
+            if (galleryData && galleryData.gallery) {
+              galleryImages = galleryData;
+              galleryData.gallery.forEach((gallery) => {
+                gallery.images.forEach((image, index) => {
+                  const galleryItem = document.createElement('div');
+                  galleryItem.className = 'gallery-item';
+
+                  const img = document.createElement('img');
+                  img.src =
+                    'https://res.cloudinary.com/drtm8uqcp/image/upload/' +
+                    image.img_name;
+                  img.alt = `Image ${index + 1}`;
+                  img.addEventListener('click', () => {
+                    showImageInModal(gallery.images, index);
+                  });
+
+                  const deleteIcon = document.createElement('i');
+                  deleteIcon.className = 'fas fa-trash delete-icon';
+                  deleteIcon.onclick = function () {
+                    deleteImage(gallery._id, image._id);
+                  };
+
+                  galleryItem.appendChild(img);
+                  galleryItem.appendChild(deleteIcon);
+
+                  imageGallery.appendChild(galleryItem);
+                });
+              });
+            }
+          }
+        } catch (error) {
+          console.error('Error during fetch:', error);
+        }
+      }
+
+      // Function to show an image in the modal
+      function showImageInModal(images, index) {
+        currentImageIndex = index;
+
+        const galleryItem = document.createElement('div');
+        galleryItem.className = 'gallery-item';
+        const img = document.createElement('img');
+        img.src =
+          'https://res.cloudinary.com/drtm8uqcp/image/upload/' +
+          images[index].img_name;
+        img.alt = `Image ${index + 1}`;
+
+        modalImage.src = img.src;
         modal.style.display = 'flex';
       }
 
+      // Function to close the modal
       function closeModal() {
         modal.style.display = 'none';
       }
 
-      function deleteImage(index) {
-        // Show confirmation prompt before deleting
+      // Function to delete an image
+      function deleteImage(galleryId, imageId) {
         const confirmDelete = confirm(
           'Are you sure you want to delete this image?'
         );
         if (confirmDelete) {
-          // Remove the image from the gallery and update the display
-          const galleryItem = galleryImages[index].closest('.gallery-item');
-          galleryItem.remove();
+          fetch(`${backendUrl}/api/v1/gallery/${galleryId}/${imageId}`, {
+            method: 'DELETE',
+          })
+            .then((response) => response.json())
+            .then((result) => {
+              console.log(result);
+              fetchImages();
+            })
+            .catch((error) => console.error('Error during fetch:', error));
         }
       }
 
-      function addImage(event) {
-        const files = event.target.files;
-
-        // Display a preview for each selected image
-        for (const file of files) {
-          const reader = new FileReader();
-          reader.onload = function (e) {
-            const galleryItem = document.createElement('div');
-            galleryItem.className = 'gallery-item';
-            const image = document.createElement('img');
-            image.src = e.target.result;
-            image.alt = 'New Image';
-            galleryItem.appendChild(image);
-            const deleteIcon = document.createElement('i');
-            deleteIcon.className = 'fas fa-trash delete-icon';
-            deleteIcon.onclick = function () {
-              deleteImage(galleryItem);
-            };
-            galleryItem.appendChild(deleteIcon);
-            document.getElementById('imageGallery').appendChild(galleryItem);
-          };
-          reader.readAsDataURL(file);
-        }
-      }
-
-      function deleteImage(galleryItem) {
-        // Show confirmation prompt before deleting
-        const confirmDelete = confirm(
-          'Are you sure you want to delete this image?'
-        );
-        if (confirmDelete) {
-          // Remove the image from the gallery and update the display
-          galleryItem.remove();
-        }
-      }
-
+      // Function to show the next image in the modal
       function nextImageInModal() {
         currentImageIndex++;
-        if (currentImageIndex >= galleryImages.length) {
+
+        if (currentImageIndex >= galleryImages.gallery.length) {
           currentImageIndex = 0;
         }
-        showImageInModal();
+        showImageInModal(
+          galleryImages.gallery.map((g) => g.images).flat(),
+          currentImageIndex
+        );
       }
 
+      // Function to show the previous image in the modal
       function prevImageInModal() {
         currentImageIndex--;
         if (currentImageIndex < 0) {
-          currentImageIndex = galleryImages.length - 1;
+          currentImageIndex = galleryImages.gallery.length - 1;
         }
-        showImageInModal();
+        showImageInModal(
+          galleryImages.gallery.map((g) => g.images).flat(),
+          currentImageIndex
+        );
       }
 
+      // Event listener for keyboard shortcuts
       document.addEventListener('keydown', function (event) {
         if (modal.style.display === 'flex') {
           if (event.key === 'ArrowRight') {
@@ -267,20 +361,18 @@
         }
       });
 
-      galleryImages.forEach((image, index) => {
-        image.addEventListener('click', () => {
-          currentImageIndex = index;
-          showImageInModal();
-        });
-      });
-
+      // Event listener for closing the modal on button click
       closeModalButton.addEventListener('click', closeModal);
 
+      // Event listener for closing the modal on overlay click
       modal.addEventListener('click', function (event) {
         if (event.target === modal) {
           closeModal();
         }
       });
+
+      // Event listener for executing code when the DOM is loaded
+      document.addEventListener('DOMContentLoaded', fetchImages);
     </script>
   </body>
 </html>
