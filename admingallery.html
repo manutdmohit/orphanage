@@ -329,25 +329,30 @@
       function nextImageInModal() {
         currentImageIndex++;
 
-        if (currentImageIndex >= galleryImages.gallery.length) {
+        const docsWithImages = galleryImages.gallery.filter(
+          (g) => g.images.length
+        );
+
+        if (currentImageIndex >= docsWithImages.length) {
           currentImageIndex = 0;
         }
-        showImageInModal(
-          galleryImages.gallery.map((g) => g.images).flat(),
-          currentImageIndex
-        );
+
+        const images = galleryImages.gallery.map((g) => g.images).flat();
+
+        showImageInModal(images, currentImageIndex);
       }
 
       // Function to show the previous image in the modal
       function prevImageInModal() {
         currentImageIndex--;
+
         if (currentImageIndex < 0) {
-          currentImageIndex = galleryImages.gallery.length - 1;
+          currentImageIndex = docsWithImages.length - 1;
         }
-        showImageInModal(
-          galleryImages.gallery.map((g) => g.images).flat(),
-          currentImageIndex
-        );
+
+        const images = galleryImages.gallery.map((g) => g.images).flat();
+
+        showImageInModal(images, currentImageIndex);
       }
 
       // Event listener for keyboard shortcuts
