@@ -266,9 +266,10 @@
 
                   const deleteIcon = document.createElement('i');
                   deleteIcon.className = 'fas fa-trash delete-icon';
-                  deleteIcon.onclick = function () {
-                    deleteImage(gallery._id, image._id);
-                  };
+
+                  deleteIcon.addEventListener('click', () => {
+                    deleteImage(image.asset_id);
+                  });
 
                   galleryItem.appendChild(img);
                   galleryItem.appendChild(deleteIcon);
@@ -305,12 +306,14 @@
       }
 
       // Function to delete an image
-      function deleteImage(galleryId, imageId) {
+      function deleteImage(assetId) {
+        console.log('clicked');
+        console.log('Deleting image with asset ID:', assetId);
         const confirmDelete = confirm(
           'Are you sure you want to delete this image?'
         );
         if (confirmDelete) {
-          fetch(`${backendUrl}/api/v1/gallery/${galleryId}/${imageId}`, {
+          fetch(`${backendUrl}/api/v1/gallery/${assetId}`, {
             method: 'DELETE',
           })
             .then((response) => response.json())
