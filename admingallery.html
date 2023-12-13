@@ -362,6 +362,10 @@
       function prevImageInModal() {
         currentImageIndex--;
 
+const docsWithImages = galleryImages.gallery.filter(
+          (g) => g.images.length
+        );
+
         if (currentImageIndex < 0) {
           currentImageIndex = docsWithImages.length - 1;
         }
