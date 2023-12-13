@@ -460,16 +460,15 @@
           padding-top: 225px; /* Adjust the top padding to match your header height */
         }
 
-        .modal-content {
+        /* .modal-content {
           width: 90%;
           display: flex;
           /* justify-content: center; */
-          align-items: center;
-          /* height: 100%; */
-          margin: 200px auto;
-        }
-
-        .footer-container {
+        /* align-items: center; */
+        /* height: 100%; */
+        /* margin: 200px auto; */
+        /* } */
+        */ .footer-container {
           flex-direction: column;
         }
 
@@ -722,9 +721,12 @@
         color: #cd0909;
       }
 
-      @media only screen and (max-width: 469px) {
-        .gallery {
-          justify-content: center;
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        .gallery-item {
+          width: 100%;
+          height: auto;
+          margin-bottom: 16px;
         }
       }
     </style>
