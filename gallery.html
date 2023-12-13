@@ -15,7 +15,719 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="style.css" />
+    <!-- External stylesheet for Font Awesome icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+
+    <!-- Internal stylesheet for custom styles -->
+    <style>
+      /* Reset default margin and padding */
+      body,
+      header,
+      nav,
+      ul,
+      li,
+      footer,
+      h1,
+      p {
+        margin: 0;
+        padding: 0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      /* .mySlides {
+  display: none;
+} */
+
+      /* img {
+  vertical-align: middle;
+} */
+
+      /* Apply basic styles to the website */
+      body {
+        font-family: 'Barlow', sans-serif;
+        background: rgb(29, 45, 77, 1);
+        color: rgb(242, 245, 247);
+        position: relative;
+        min-height: 100vh;
+        margin: 0;
+        padding-bottom: 0;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .container {
+        transition: all ease-in-out 500ms;
+        opacity: 1;
+        transform: translateY(0);
+        max-width: 3xl; /* You would replace '3xl' with your specific value */
+        text-align: left;
+        margin-left: 0;
+        margin-right: auto;
+      }
+
+      .title {
+        margin-bottom: 6px;
+        word-wrap: break-word;
+        color: rgb(17, 24, 39);
+      }
+
+      .description {
+        color: rgb(17, 24, 39);
+      }
+
+      .button-container {
+        display: flex;
+        flex-direction: column;
+        gap: 4px; /* You would replace '4px' with your specific value */
+      }
+
+      .donate-button {
+        display: inline-block;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        border-width: 2px;
+        border-style: solid;
+        box-shadow: none;
+        font-family: var(--body-fontFamily);
+        font-weight: var(--body-fontWeight);
+        font-style: var(--body-fontStyle);
+        background-color: rgb(213, 83, 77);
+        color: rgb(255, 255, 255);
+        border-radius: 8px;
+        border-color: rgb(213, 83, 77);
+      }
+
+      .navbar {
+        background-color: #102533;
+        color: #fff;
+        padding: 5px;
+        margin: 0 auto;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        max-height: 10vh;
+        z-index: 9999;
+      }
+
+      .container {
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+
+      .nav-links li {
+        margin-right: 20px;
+      }
+
+      .nav-links a,
+      .logo a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 1.2rem;
+        letter-spacing: 0.1rem;
+      }
+
+      main {
+        margin: 100px 20px 20px 20px;
+        text-align: center;
+        flex-grow: 1;
+        transition: padding-top 0.3s ease;
+      }
+
+      h1 {
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        letter-spacing: 0.1rem;
+      }
+
+      p {
+        font-size: 20px;
+
+        /* font-weight: inherit; */
+        font-weight: 400;
+        text-align: justify;
+        line-height: 1.8;
+        letter-spacing: 0.1rem;
+        margin: 0 0 22px 0;
+        word-spacing: 0.1rem;
+      }
+
+      li {
+        font-family: 'Barlow', sans-serif;
+      }
+
+      #nepali {
+        font-family: 'Mukta', sans-serif;
+      }
+
+      .highlight-box {
+        background-color: #f5f5f5bd; /* Light gray background color *
+  padding: 20px; /* Padding inside the box */
+        border-radius: 10px; /* Rounded corners for a modern look */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth effect */
+        margin-bottom: 20px; /* Margin below the box for spacing */
+      }
+
+      /* Style for the text inside the box */
+      .highlight-box p {
+        margin: 0; /* Remove default margin for paragraphs */
+        font-size: 20px; /* Adjust font size */
+        font-family: 'Mukta', sans-serif;
+        padding: 10px;
+        color: #333; /* Text color */
+      }
+
+      .highlight-box .items-list li {
+        color: #333; /* Text color */
+        margin-left: 25px;
+        font-size: 20px; /* Adjust font size */
+        font-family: 'Mukta', sans-serif;
+        padding: 10px;
+        color: #333; /* Text color */
+      }
+
+      #mapText {
+        font-size: 20px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        text-align: justify;
+        line-height: 1.8;
+        letter-spacing: 0.1rem;
+        margin: 0 22px;
+        word-spacing: 0.1rem;
+      }
+
+      #location {
+        text-align: center;
+      }
+
+      .mySlides img {
+        width: 50%;
+      }
+
+      img.image {
+        max-width: 100%;
+        max-height: 225px;
+        margin-bottom: 20px;
+      }
+
+      /* Your CSS styles here */
+      .carousel {
+        width: 100%;
+      }
+
+      .carousel img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .map-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 40px;
+      }
+
+      footer {
+        /* background-color: #333; */
+        --tw-bg-opacity: 1;
+        background-color: #00000052;
+        color: #fff;
+        padding: 10px 20px;
+        margin-top: auto;
+      }
+
+      .footer-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+
+      .footer-column {
+        flex-basis: 30%;
+        margin-bottom: 20px;
+      }
+
+      .footer-column h3 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #fff;
+        letter-spacing: 0.1rem;
+      }
+
+      .footer-column p {
+        font-size: 14px;
+        margin-bottom: 10px;
+        word-spacing: -0.1em;
+      }
+
+      .footer-column ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 5px;
+      }
+
+      .footer-column ul li a {
+        color: #fff;
+        text-decoration: none;
+        letter-spacing: 0.1rem;
+      }
+
+      .footer-bottom {
+        margin-top: 20px;
+        text-align: center;
+        color: #ccc;
+        font-size: 12px;
+      }
+
+      #contact p a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .carousel {
+        width: 80%;
+        margin: 0 auto;
+      }
+
+      .carousel-cell {
+        width: 100%;
+      }
+
+      .carousel img {
+        width: 50%;
+        height: auto;
+      }
+
+      .sub-head {
+        text-align: center;
+        /* color: #333; */
+        font-weight: bold;
+        align-items: center;
+      }
+
+      .sub-head p {
+        margin-bottom: 0;
+      }
+
+      /* Additional styles for programs.html */
+      section ul {
+        margin: 10px 0;
+        padding-left: 0;
+        text-align: initial;
+      }
+
+      section li {
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 10px;
+        list-style-type: none;
+        display: flex;
+        align-items: flex-start;
+        letter-spacing: 0.1rem;
+      }
+
+      section li::before {
+        content: '\2022';
+        display: inline-block;
+        width: 1em;
+        margin-right: 5px;
+        flex-shrink: 0;
+      }
+
+      /* Fix for section ul li p element */
+      section ul li p {
+        text-indent: 0;
+      }
+
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td,
+      th {
+        text-align: left;
+        padding: 8px;
+      }
+
+      .logo img {
+        width: 20%;
+        height: fit-content;
+      }
+
+      /* Change the color of the scrollbar track */
+      ::-webkit-scrollbar {
+        width: 10px;
+        background-color: #f0f0f0; /* Light gray color for the track */
+      }
+
+      /* Change the color of the scrollbar thumb */
+      ::-webkit-scrollbar-thumb {
+        background-color: #3498db; /* Blue color for the thumb */
+      }
+
+      /* Change the color of the scrollbar thumb on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: #2980b9; /* Slightly darker blue color on hover */
+      }
+
+      main {
+        position: relative;
+        transition: padding-top 0.3s ease;
+      }
+
+      .hamburger-icon:hover ~ main {
+        padding-top: 0;
+      }
+
+      @media (min-width: 767px) {
+        .hamburger-icon {
+          display: none;
+        }
+      }
+
+      /* Responsive styles */
+      @media (max-width: 767px) {
+        h1 {
+          font-size: 30px;
+        }
+
+        p {
+          font-size: 16px;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .hamburger-icon {
+          cursor: pointer;
+          text-align: right;
+          font-size: 20px;
+          margin-right: 22px;
+        }
+
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          background-color: #102533; /*Background color for the mobile menu */
+          position: absolute;
+          top: 60px; /* Adjust as needed to position the mobile menu */
+          right: 0;
+          width: 100%;
+          padding: 20px;
+          z-index: 999;
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .nav-links li {
+          margin-top: 10px;
+        }
+
+        .nav-links a {
+          text-align: start;
+        }
+
+        .main-menu-active-padding {
+          padding-top: 225px; /* Adjust the top padding to match your header height */
+        }
+
+        .modal-content {
+          width: 90%;
+          display: flex;
+          /* justify-content: center; */
+          align-items: center;
+          /* height: 100%; */
+          margin: 200px auto;
+        }
+
+        .footer-container {
+          flex-direction: column;
+        }
+
+        .footer-column {
+          flex-basis: 100%;
+          max-width: 100%;
+          text-align: left;
+          margin-bottom: auto;
+        }
+      }
+
+      /* Style for the table */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 16px;
+      }
+
+      /* Style for table headers */
+      th {
+        background-color: #b9abab;
+        color: #333;
+        font-weight: bold;
+        padding: 12px;
+        text-align: left;
+      }
+
+      /* Style for table rows */
+      td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      /* Hover effect for table rows */
+      tr:hover {
+        background-color: #7a5b5b;
+      }
+
+      /* Style for the scrollable container */
+      .scrollable {
+        max-height: 300px;
+        overflow-y: auto;
+      }
+
+      /* Responsive styling for small screens */
+      @media (max-width: 600px) {
+        th,
+        td {
+          font-size: 14px;
+        }
+      }
+
+      /* Style for unordered list */
+      .custom-list {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      /* Style for list items */
+      .custom-list li {
+        margin-bottom: 10px;
+        padding: 15px;
+        background-color: #d3c3c3; /* Light gray background */
+        color: #333; /* Dark text color */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle lift */
+      }
+
+      /* Style for list item text */
+      .custom-list li p {
+        margin: 0;
+        font-size: 16px;
+        color: #333; /* Text color */
+      }
+
+      /* Style for list item title */
+      .custom-list li h2 {
+        margin-bottom: 8px;
+        font-size: 20px;
+        color: #007bff; /* Title color */
+      }
+
+      .contact-container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        width: 100%;
+        margin: auto;
+        text-align: center;
+      }
+
+      .contact-container h1 {
+        color: #333;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        margin-top: 10px;
+        color: #555;
+      }
+
+      input,
+      textarea {
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      @media only screen and (max-width: 768px) {
+        .contact-container {
+          padding: 20px;
+        }
+      }
+
+      .success-message {
+        display: none;
+        color: #4caf50;
+        font-size: 18px;
+        margin-top: 10px;
+      }
+
+      /* CSS Styles */
+
+      .gallery-container {
+        max-width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        margin-top: 60px;
+      }
+
+      .gallery {
+        display: flex;
+        flex-wrap: wrap; /* Allow images to wrap to the next line */
+        gap: 25px;
+        padding: 16px;
+      }
+
+      .gallery-item {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        overflow: hidden;
+        border-radius: 8px;
+      }
+
+      .gallery img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .gallery img:hover {
+        transform: scale(1.1);
+      }
+
+      .delete-icon {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        color: #ff0e0e;
+        cursor: pointer;
+        font-size: 16px;
+        display: none;
+      }
+
+      .gallery-item:hover .delete-icon {
+        display: block;
+      }
+
+      /* Lightbox styles */
+      .lightbox {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .lightbox img {
+        max-width: 80%;
+        max-height: 80%;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        cursor: pointer;
+        color: #fff;
+        font-size: 24px;
+      }
+
+      /* Navigation arrows */
+      .nav-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 24px;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      .prev {
+        left: 16px;
+      }
+
+      .next {
+        right: 16px;
+      }
+
+      span#closeModal.close {
+        position: absolute;
+        top: 125px;
+        right: 150px;
+        cursor: pointer;
+        font-size: 25px;
+        color: #cd0909;
+      }
+
+      @media only screen and (max-width: 469px) {
+        .gallery {
+          justify-content: center;
+        }
+      }
+    </style>
   </head>
 
   <body>
@@ -40,16 +752,33 @@
       </nav>
     </header>
 
-    <main>
-      <div class="gallery" id="imageGallery">
-        <!-- Images will be dynamically loaded here -->
-      </div>
-    </main>
+    <!-- <main>
+      <div class="gallery" id="imageGallery"> -->
+    <!-- Images will be dynamically loaded here -->
+    <!-- </div>
+    </main> -->
 
     <!-- Modal for displaying the enlarged image -->
-    <div class="modal" id="imageModal">
+    <!-- <div class="modal" id="imageModal">
       <span class="close" id="closeModal">&times;</span>
       <img class="modal-content" id="modalImage" />
+    </div> -->
+
+    <!-- Container for displaying the image gallery -->
+    <div class="gallery-container">
+      <!-- Dynamic gallery content will be added here -->
+      <div class="gallery" id="imageGallery"></div>
+    </div>
+
+    <!-- Modal for displaying enlarged image -->
+    <div class="lightbox" id="imageModal">
+      <!-- Close button for the modal -->
+      <span class="close" id="closeModal">&times;</span>
+      <!-- Image content within the modal -->
+      <img class="modal-content" id="modalImage" />
+      <!-- Navigation arrows within the modal -->
+      <div class="nav-arrow prev" onclick="prevImageInModal()">&#10094;</div>
+      <div class="nav-arrow next" onclick="nextImageInModal()">&#10095;</div>
     </div>
 
     <footer>
@@ -90,8 +819,176 @@
       <p class="footer-bottom" id="footer-year"></p>
     </footer>
 
-    <script src="./script.js">
-      // Function to create image elements and append them to the gallery
+    <!-- External configuration script -->
+    <script src="./config.js"></script>
+    <!-- Inline JavaScript code for custom functionality -->
+    <script>
+      // Global variables for backend and frontend URLs
+      const backendUrl = window.config.backendUrl;
+      const frontendUrl = window.config.frontendUrl;
+
+      // Set Hamburger Icon
+      const hamburgerIcon = document.querySelector('.hamburger-icon');
+      const navLinks = document.querySelector('.nav-links');
+      const mainContent = document.querySelector('main');
+
+      // const aboutUs = document.querySelector('#about-us-desc');
+
+      hamburgerIcon.addEventListener('click', function () {
+        navLinks.classList.toggle('active');
+        mainContent.classList.toggle('main-menu-active-padding');
+      });
+
+      // DOM elements for modal and image display
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      const closeModalButton = document.getElementById('closeModal');
+
+      // Index of the currently displayed image
+      let currentImageIndex = 0;
+
+      // Array to store gallery images
+      let galleryImages = [];
+
+      // Function to fetch and display images from the backend
+      async function fetchImages() {
+        try {
+          const response = await fetch(`${backendUrl}/api/v1/gallery`);
+
+          if (response.ok) {
+            const galleryData = await response.json();
+
+            let imageGallery;
+            imageGallery = document.getElementById('imageGallery');
+            imageGallery.innerHTML = '';
+
+            if (galleryData && galleryData.gallery) {
+              galleryImages = galleryData;
+              galleryData.gallery.forEach((gallery) => {
+                gallery.images.forEach((image, index) => {
+                  const galleryItem = document.createElement('div');
+                  galleryItem.className = 'gallery-item';
+
+                  // Set 'assetId' dataset
+                  galleryItem.dataset.assetId = image.asset_id;
+
+                  const img = document.createElement('img');
+                  img.src =
+                    'https://res.cloudinary.com/drtm8uqcp/image/upload/' +
+                    image.img_name;
+                  img.alt = `Image ${index + 1}`;
+                  img.addEventListener('click', () => {
+                    showImageInModal(gallery.images, index);
+                  });
+
+                  galleryItem.appendChild(img);
+
+                  imageGallery.appendChild(galleryItem);
+                });
+              });
+
+              // Event delegation for delete icons
+              imageGallery.addEventListener('click', function (event) {
+                const deleteIcon = event.target.closest('.delete-icon');
+
+                if (deleteIcon) {
+                  const galleryItem = event.target.closest('.gallery-item');
+
+                  if (galleryItem) {
+                    const assetId = galleryItem.dataset.assetId;
+
+                    deleteImage(assetId);
+                  }
+                }
+              });
+            }
+          }
+        } catch (error) {
+          console.error('Error during fetch:', error);
+        }
+      }
+
+      // Function to show an image in the modal
+      function showImageInModal(images, index) {
+        currentImageIndex = index;
+
+        const galleryItem = document.createElement('div');
+        galleryItem.className = 'gallery-item';
+
+        const img = document.createElement('img');
+        img.src =
+          'https://res.cloudinary.com/drtm8uqcp/image/upload/' +
+          images[index].img_name;
+        img.alt = `Image ${index + 1}`;
+
+        modalImage.src = img.src;
+        modal.style.display = 'flex';
+      }
+
+      // Function to close the modal
+      function closeModal() {
+        modal.style.display = 'none';
+      }
+
+      // Function to show the next image in the modal
+      function nextImageInModal() {
+        currentImageIndex++;
+
+        const docsWithImages = galleryImages.gallery.filter(
+          (g) => g.images.length
+        );
+
+        if (currentImageIndex >= docsWithImages.length) {
+          currentImageIndex = 0;
+        }
+
+        const images = galleryImages.gallery.map((g) => g.images).flat();
+
+        showImageInModal(images, currentImageIndex);
+      }
+
+      // Function to show the previous image in the modal
+      function prevImageInModal() {
+        currentImageIndex--;
+
+        const docsWithImages = galleryImages.gallery.filter(
+          (g) => g.images.length
+        );
+
+        if (currentImageIndex < 0) {
+          currentImageIndex = docsWithImages.length - 1;
+        }
+
+        const images = galleryImages.gallery.map((g) => g.images).flat();
+
+        showImageInModal(images, currentImageIndex);
+      }
+
+      // Event listener for keyboard shortcuts
+      document.addEventListener('keydown', function (event) {
+        if (modal.style.display === 'flex') {
+          if (event.key === 'ArrowRight') {
+            nextImageInModal();
+          } else if (event.key === 'ArrowLeft') {
+            prevImageInModal();
+          } else if (event.key === 'Escape') {
+            closeModal();
+          }
+        }
+      });
+
+      // Event listener for closing the modal on button click
+      closeModalButton.addEventListener('click', closeModal);
+
+      // Event listener for closing the modal on overlay click
+      modal.addEventListener('click', function (event) {
+        if (event.target === modal) {
+          closeModal();
+        }
+      });
+
+      // Event listener for executing code when the DOM is loaded
+      document.addEventListener('DOMContentLoaded', fetchImages);
     </script>
   </body>
 </html>
