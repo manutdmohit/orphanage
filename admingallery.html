@@ -144,6 +144,25 @@
         font-size: 25px;
         color: #cd0909;
       }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        .gallery-item {
+          width: 100%;
+          height: auto;
+          margin-bottom: 16px;
+        }
+
+        .lightbox img {
+          max-height: 100%;
+          max-width: 100%;
+        }
+
+        span#closeModal.close {
+          top: 170px;
+          right: 15px;
+        }
+      }
     </style>
   </head>
 
@@ -362,7 +381,7 @@
       function prevImageInModal() {
         currentImageIndex--;
 
-const docsWithImages = galleryImages.gallery.filter(
+        const docsWithImages = galleryImages.gallery.filter(
           (g) => g.images.length
         );
 
