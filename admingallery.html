@@ -87,15 +87,15 @@
         max-height: 80%;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        order: 1;
       }
 
-      .close-btn {
-        position: absolute;
-        top: 16px;
-        right: 16px;
+      .close {
+        order: 2;
+        margin-top: calc(-80vh);
         cursor: pointer;
-        color: #fff;
-        font-size: 24px;
+        color: #e00000;
+        font-size: 30px;
       }
 
       /* Navigation arrows */
@@ -136,15 +136,6 @@
         margin-bottom: 16px;
       }
 
-      span#closeModal.close {
-        position: absolute;
-        top: 125px;
-        right: 150px;
-        cursor: pointer;
-        font-size: 25px;
-        color: #cd0909;
-      }
-
       /* Responsive Styles */
       @media (max-width: 768px) {
         .gallery-item {
@@ -153,14 +144,10 @@
           margin-bottom: 16px;
         }
 
-        .lightbox img {
-          max-height: 100%;
-          max-width: 100%;
-        }
-
-        span#closeModal.close {
-          top: 170px;
-          right: 15px;
+        .close {
+          font-size: 22px;
+          font-weight: bold;
+          margin-top: calc(-60vw);
         }
       }
     </style>
@@ -196,9 +183,9 @@
     <div class="lightbox" id="imageModal">
       <!-- Close button for the modal -->
       <span class="close" id="closeModal">&times;</span>
+      <!-- Navigation arrows within the modal -->
       <!-- Image content within the modal -->
       <img class="modal-content" id="modalImage" />
-      <!-- Navigation arrows within the modal -->
       <div class="nav-arrow prev" onclick="prevImageInModal()">&#10094;</div>
       <div class="nav-arrow next" onclick="nextImageInModal()">&#10095;</div>
     </div>

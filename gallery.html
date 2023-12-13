@@ -40,14 +40,6 @@
         box-sizing: border-box;
       }
 
-      /* .mySlides {
-  display: none;
-} */
-
-      /* img {
-  vertical-align: middle;
-} */
-
       /* Apply basic styles to the website */
       body {
         font-family: 'Barlow', sans-serif;
@@ -219,31 +211,10 @@
         text-align: center;
       }
 
-      .mySlides img {
-        width: 50%;
-      }
-
       img.image {
         max-width: 100%;
         max-height: 225px;
         margin-bottom: 20px;
-      }
-
-      /* Your CSS styles here */
-      .carousel {
-        width: 100%;
-      }
-
-      .carousel img {
-        max-width: 100%;
-        height: auto;
-      }
-
-      .map-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 40px;
       }
 
       footer {
@@ -308,31 +279,6 @@
         text-decoration: none;
       }
 
-      .carousel {
-        width: 80%;
-        margin: 0 auto;
-      }
-
-      .carousel-cell {
-        width: 100%;
-      }
-
-      .carousel img {
-        width: 50%;
-        height: auto;
-      }
-
-      .sub-head {
-        text-align: center;
-        /* color: #333; */
-        font-weight: bold;
-        align-items: center;
-      }
-
-      .sub-head p {
-        margin-bottom: 0;
-      }
-
       /* Additional styles for programs.html */
       section ul {
         margin: 10px 0;
@@ -361,18 +307,6 @@
       /* Fix for section ul li p element */
       section ul li p {
         text-indent: 0;
-      }
-
-      table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-      }
-
-      td,
-      th {
-        text-align: left;
-        padding: 8px;
       }
 
       .logo img {
@@ -460,15 +394,7 @@
           padding-top: 225px; /* Adjust the top padding to match your header height */
         }
 
-        /* .modal-content {
-          width: 90%;
-          display: flex;
-          /* justify-content: center; */
-        /* align-items: center; */
-        /* height: 100%; */
-        /* margin: 200px auto; */
-        /* } */
-        */ .footer-container {
+        .footer-container {
           flex-direction: column;
         }
 
@@ -478,40 +404,6 @@
           text-align: left;
           margin-bottom: auto;
         }
-      }
-
-      /* Style for the table */
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-        font-size: 16px;
-      }
-
-      /* Style for table headers */
-      th {
-        background-color: #b9abab;
-        color: #333;
-        font-weight: bold;
-        padding: 12px;
-        text-align: left;
-      }
-
-      /* Style for table rows */
-      td {
-        padding: 12px;
-        border-bottom: 1px solid #ddd;
-      }
-
-      /* Hover effect for table rows */
-      tr:hover {
-        background-color: #7a5b5b;
-      }
-
-      /* Style for the scrollable container */
-      .scrollable {
-        max-height: 300px;
-        overflow-y: auto;
       }
 
       /* Responsive styling for small screens */
@@ -683,15 +575,15 @@
         max-height: 80%;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        order: 1;
       }
 
-      .close-btn {
-        position: absolute;
-        top: 16px;
-        right: 16px;
+      .close {
+        order: 2;
+        margin-top: calc(-80vh);
         cursor: pointer;
-        color: #fff;
-        font-size: 24px;
+        color: #e00000;
+        font-size: 30px;
       }
 
       /* Navigation arrows */
@@ -712,21 +604,18 @@
         right: 16px;
       }
 
-      span#closeModal.close {
-        position: absolute;
-        top: 125px;
-        right: 150px;
-        cursor: pointer;
-        font-size: 25px;
-        color: #cd0909;
-      }
-
       /* Responsive Styles */
       @media (max-width: 768px) {
         .gallery-item {
           width: 100%;
           height: auto;
           margin-bottom: 16px;
+        }
+
+        .close {
+          font-size: 22px;
+          font-weight: bold;
+          margin-top: calc(-60vw);
         }
       }
     </style>
