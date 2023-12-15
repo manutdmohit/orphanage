@@ -15,13 +15,90 @@
     <!-- Internal stylesheet for custom styles -->
     <style>
       /* CSS Styles */
-      body {
-        font-family: 'Arial', sans-serif;
+      p {
         margin: 0;
         padding: 0;
-        background-color: #f2f2f2;
+        font-family: 'Barlow', sans-serif;
       }
 
+      * {
+        box-sizing: border-box;
+      }
+
+      nav {
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+      }
+
+      #home {
+        padding: 8px 16px;
+        text-decoration: none;
+        cursor: pointer;
+        position: absolute;
+        top: 15px;
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      #home:hover {
+        color: #4caf50;
+      }
+
+      #galleryButton {
+        position: absolute;
+        top: 15px;
+        right: 210px;
+      }
+
+      #messageButton {
+        padding: 8px 16px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        position: absolute;
+        top: 15px;
+        right: 100px;
+      }
+
+      /* Adjust the button styling */
+      button {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 8px 16px; /* Adjust the padding as needed */
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      #logoutButton {
+        padding: 8px 16px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        position: absolute;
+        top: 15px;
+        right: 10px;
+      }
       .gallery-container {
         max-width: 100%;
         overflow-x: auto;
@@ -133,6 +210,7 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        margin-top: 45px;
         margin-bottom: 16px;
       }
 
@@ -154,6 +232,18 @@
   </head>
 
   <body>
+    <!-- Logout button on the right side -->
+    <a id="home" href="/dashboard.html">VWF</a>
+
+    <div class="nav-links">
+      <a href="/admingallery.html"
+        ><button id="galleryButton">Gallery</button></a
+      >
+      <button id="logoutButton">Logout</button>
+
+      <a href="/message.html"><button id="messageButton">Message</button></a>
+    </div>
+
     <!-- Add Image Container -->
     <div class="add-image-container">
       <!-- File input for uploading images -->
@@ -200,6 +290,59 @@
       const backendUrl = window.config.backendUrl;
       const frontendUrl = window.config.frontendUrl;
 
+      const token = localStorage.getItem('token');
+
+      async function checkAuthentication() {
+        try {
+          const response = await fetch(`${backendUrl}/check-auth`, {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            credentials: 'include',
+          });
+
+          if (!response.ok) {
+            console.log(
+              'Authentication failed. Response status:',
+              response.status
+            );
+            console.log('Response text:', await response.text());
+
+            if (response.status === 401) {
+              // Handle token refresh or ask the user to log in again
+              console.log(
+                'Token expired or invalid. Redirecting to login page.'
+              );
+              localStorage.removeItem('token');
+            } else {
+              // Handle other cases as needed
+              console.log(
+                'Other authentication failure. Redirecting to login page.'
+              );
+              localStorage.removeItem('token');
+            }
+          }
+        } catch (error) {
+          console.error('Error fetching data:', error);
+          console.log('Redirecting to login page due to an error');
+
+          localStorage.removeItem('token');
+        }
+
+        if (
+          !localStorage.getItem('token') &&
+          window.location.pathname !== '/admin.html'
+        ) {
+          console.log('Redirecting to login page');
+          window.location.href = `${frontendUrl}/admin.html`;
+          return;
+        }
+      }
+
+      // Call the checkAuthentication function when the page loads
+      checkAuthentication();
+
       // DOM elements for modal and image display
       const modal = document.getElementById('imageModal');
       const modalImage = document.getElementById('modalImage');
@@ -219,12 +362,20 @@
         const formData = new FormData();
 
         for (const file of files) {
+          const maxUploadSize = 10 * 1024 * 1024;
+          if (file.size > maxUploadSize) {
+            alert('Please upload image below 10 MB only');
+            return 1;
+          }
           formData.append('images', file);
         }
 
         try {
           const response = await fetch(`${backendUrl}/api/v1/gallery`, {
             method: 'POST',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
             body: formData,
           });
 
@@ -334,6 +485,9 @@
             `${backendUrl}/api/v1/gallery/${assetId}`,
             {
               method: 'DELETE',
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
             }
           );
 
@@ -403,6 +557,28 @@
           closeModal();
         }
       });
+      async function logout() {
+        try {
+          const response = await fetch(`${backendUrl}/logout`, {
+            method: 'GET',
+            credentials: 'include',
+          });
+
+          if (response.ok) {
+            // Redirect to the login page after successful logout
+            localStorage.setItem('token', '');
+            window.location.href = `${frontendUrl}/admin.html`;
+          } else {
+            console.error('Error logging out:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error logging out:', error);
+        }
+      }
+
+      // Add click event listener to the logout button
+      const logoutButton = document.getElementById('logoutButton');
+      logoutButton.addEventListener('click', logout);
 
       // Event listener for executing code when the DOM is loaded
       document.addEventListener('DOMContentLoaded', fetchImages);
