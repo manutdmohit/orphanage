@@ -37,6 +37,53 @@ body {
   flex-direction: column;
 }
 
+.support {
+  transition: all ease-in-out 500ms;
+  opacity: 1;
+  transform: translateY(0);
+  max-width: 3xl; /* You would replace '3xl' with your specific value */
+  text-align: center;
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.title {
+  margin-bottom: 6px;
+  word-wrap: break-word;
+}
+
+.support h2 {
+  font-weight: 100;
+  word-spacing: 0.1rem;
+  letter-spacing: 0.1rem;
+}
+
+#description {
+  text-align: center;
+  font-weight: normal;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* You would replace '4px' with your specific value */
+}
+
+.donate-button {
+  display: inline-block;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border-width: 2px;
+  border-style: solid;
+  box-shadow: none;
+  background-color: rgb(213, 83, 77);
+  color: rgb(255, 255, 255);
+  border-radius: 8px;
+  border-color: rgb(213, 83, 77);
+}
+
 .navbar {
   background-color: #102533;
   color: #fff;
@@ -133,6 +180,10 @@ li {
   font-family: 'Mukta', sans-serif;
   padding: 10px;
   color: #333; /* Text color */
+}
+
+#resources-p {
+  font-family: 'Mukta', sans-serif;
 }
 
 #mapText {
@@ -266,7 +317,47 @@ footer {
   font-weight: bold;
   align-items: center;
 }
+/* Style for the table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+}
 
+/* Style for table headers */
+th {
+  background-color: #b9abab;
+  color: #333;
+  font-weight: bold;
+  padding: 12px;
+  text-align: left;
+}
+
+/* Style for table rows */
+td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Hover effect for table rows */
+tr:hover {
+  background-color: #7a5b5b;
+}
+
+/* Style for the scrollable container */
+.scrollable {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Responsive styling for small screens */
+@media (max-width: 600px) {
+  th,
+  td {
+    font-size: 14px;
+  }
+}
 .sub-head p {
   margin-bottom: 0;
 }
@@ -754,4 +845,46 @@ button:hover {
   color: #4caf50;
   font-size: 18px;
   margin-top: 10px;
+}
+
+/* Style for the table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+}
+
+/* Style for table headers */
+th {
+  background-color: #b9abab;
+  color: #333;
+  font-weight: bold;
+  padding: 12px;
+  text-align: left;
+}
+
+/* Style for table rows */
+td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Hover effect for table rows */
+tr:hover {
+  background-color: #7a5b5b;
+}
+
+/* Style for the scrollable container */
+.scrollable {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Responsive styling for small screens */
+@media (max-width: 600px) {
+  th,
+  td {
+    font-size: 14px;
+  }
 }
