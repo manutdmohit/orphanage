@@ -889,3 +889,10 @@ tr:hover {
     font-size: 14px;
   }
 }
+
+/* Responsive styles */
+@media (max-width: 414px) {
+.logo img{
+  width: 20%;
+height: fit-content
+  }
