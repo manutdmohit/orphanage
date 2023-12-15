@@ -101,6 +101,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 50px;
 }
 
 .nav-links {
@@ -654,7 +655,7 @@ main {
     flex-direction: column;
     background-color: #102533; /*Background color for the mobile menu */
     position: absolute;
-    top: 60px; /* Adjust as needed to position the mobile menu */
+    top: 50px; /* Adjust as needed to position the mobile menu */
     right: 0;
     width: 100%;
     padding: 20px;
