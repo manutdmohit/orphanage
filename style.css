@@ -892,7 +892,8 @@ tr:hover {
 
 /* Responsive styles */
 @media (max-width: 414px) {
-.logo img{
-  width: 20%;
-height: fit-content
+  .logo img {
+    width: 20%;
+    height: fit-content;
   }
+}
