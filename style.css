@@ -891,10 +891,7 @@ tr:hover {
 
 /* Responsive styles */
 @media (max-width: 414px) {
- /* Safari on iOS specific rule */
-  @supports (-webkit-touch-callout: none) {
-    #logo {
-      width: 20%; /* Adjust the max-width to your preference */
-      height: fit-content;  /* Maintain aspect ratio */
-    }
+.logo img{
+  width: 20%;
+height: fit-content
   }
