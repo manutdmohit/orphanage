@@ -696,6 +696,17 @@ main {
     height: 200px;
     width: 90%;
   }
+
+  #org-desc {
+    font-size: 20px;
+    /* font-weight: inherit; */
+    font-weight: 400;
+    text-align: justify;
+    line-height: 1.8;
+    letter-spacing: 0.05rem;
+    margin: 0 0 22px 0;
+    word-spacing: 0.1rem;
+  }
 }
 
 /* Style for the table */
