@@ -23,7 +23,7 @@
       <nav class="navbar">
         <div class="container">
           <div class="logo">
-            <a href="/"> <img src="./logo_main.png" alt="VWF" /></a>
+            <a href="/">VWF</a>
           </div>
           <ul class="nav-links">
             <li><a href="/">Home</a></li>
@@ -110,10 +110,20 @@
       <p class="footer-bottom" id="footer-year"></p>
     </footer>
 
-    <!-- Add this script at the end of your HTML body -->
-    <!-- Update the script at the end of your HTML body -->
     <script src="./config.js"></script>
     <script>
+      // Set Hamburger Icon
+      const hamburgerIcon = document.querySelector('.hamburger-icon');
+      const navLinks = document.querySelector('.nav-links');
+      const mainContent = document.querySelector('main');
+
+      // const aboutUs = document.querySelector('#about-us-desc');
+
+      hamburgerIcon.addEventListener('click', function () {
+        navLinks.classList.toggle('active');
+        mainContent.classList.toggle('main-menu-active-padding');
+      });
+
       const backendUrl = window.config.backendUrl;
 
       function submitForm() {
