@@ -69,21 +69,6 @@ body {
   gap: 4px; /* You would replace '4px' with your specific value */
 }
 
-.donate-button {
-  display: inline-block;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  border-width: 2px;
-  border-style: solid;
-  box-shadow: none;
-  background-color: rgb(213, 83, 77);
-  color: rgb(255, 255, 255);
-  border-radius: 8px;
-  border-color: rgb(213, 83, 77);
-}
-
 .navbar {
   background-color: #102533;
   color: #fff;
