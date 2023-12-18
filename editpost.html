@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Post</title>
+    <!-- Add this line to include Font Awesome CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      nav {
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+      }
+
+      #home {
+        padding: 8px 16px;
+        text-decoration: none;
+        cursor: pointer;
+        position: absolute;
+        top: 15px;
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      #home:hover {
+        color: #4caf50;
+      }
+
+      #postButton {
+        position: absolute;
+        top: 15px;
+        right: 310px;
+      }
+
+      #galleryButton {
+        position: absolute;
+        top: 15px;
+        right: 210px;
+      }
+
+      #messageButton {
+        padding: 8px 16px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        position: absolute;
+        top: 15px;
+        right: 100px;
+      }
+
+      #logoutButton {
+        padding: 8px 16px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        position: absolute;
+        top: 15px;
+        right: 10px;
+      }
+
+      form {
+        max-width: 500px;
+        margin: auto;
+        margin-top: 50px;
+      }
+
+      label {
+        display: block;
+        margin-top: 10px;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .posts {
+        margin-top: 30px;
+      }
+
+      .post {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: relative; /* Added position relative */
+      }
+
+      .buttons-container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 10px;
+      }
+
+      h1 {
+        text-align: center;
+        margin-top: 75px;
+      }
+
+      form {
+        max-width: 500px;
+        margin: auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      label {
+        display: block;
+        margin-top: 10px;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+      }
+
+      .images-container {
+        position: relative;
+        display: inline-block;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start; /* Align images to the start (left) */
+
+        margin-top: 10px;
+        margin-bottom: 20px;
+      }
+
+      .image-container {
+        position: relative;
+        margin-top: 10px;
+        margin-right: 10px;
+        flex: 0 0 calc(25% - 10px); /* Four images in a row, accounting for margin */
+      }
+
+      .image-container img {
+        max-width: 25vw;
+        height: auto;
+        display: block;
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+      }
+
+      .delete-image-button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        padding: 5px;
+        cursor: pointer;
+        display: none;
+      }
+
+      .image-container:hover .delete-image-button {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Logout button on the right side -->
+    <a id="home" href="/dashboard.html">VWF</a>
+
+    <div class="nav-links">
+      <a href="/admingallery.html"
+        ><button id="galleryButton">Gallery</button></a
+      >
+      <a href="/posts.html"><button id="postButton">Post</button></a>
+
+      <button id="logoutButton">Logout</button>
+
+      <a href="/message.html"><button id="messageButton">Message</button></a>
+    </div>
+
+    <h1>Update Post</h1>
+
+    <form id="editPostForm">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required />
+
+      <label for="content">Content:</label>
+      <textarea id="content" name="content" rows="4" required></textarea>
+
+      <label for="images">Images:</label>
+      <input type="file" id="images" name="images" accept="image/*" multiple />
+    </form>
+
+    <!-- Container to display images -->
+    <div class="images-container" id="imagesContainer"></div>
+
+    <button type="button" onclick="updatePost()">Update Post</button>
+
+    <script src="./config.js"></script>
+    <script>
+      const backendUrl = window.config.backendUrl; // Replace with your backend URL
+
+      // Get the query parameter from the URL
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+
+      // Get the value of the 'q' parameter (postId in this case)
+      const postId = urlParams.get('q');
+
+      // Fetch the post details based on postId and populate the form
+      async function fetchPostDetails() {
+        try {
+          const response = await fetch(`${backendUrl}/api/v1/posts/${postId}`);
+          if (response.ok) {
+            const post = await response.json();
+            // Populate the form with post details for editing
+            document.getElementById('title').value = post.title;
+            document.getElementById('content').value = post.content;
+
+            // Display images in the images container
+            const imagesContainer = document.getElementById('imagesContainer');
+            imagesContainer.innerHTML = '';
+
+            if (post.images && post.images.length > 0) {
+              post.images.forEach((image) => {
+                const imageContainer = document.createElement('div');
+                imageContainer.classList.add('image-container');
+
+                const imgElement = document.createElement('img');
+                imgElement.src = `https://res.cloudinary.com/drtm8uqcp/image/upload/${image.img_name}`;
+                imgElement.alt = 'Post Image';
+                imgElement.classList.add('medium-image');
+
+                const deleteImageButton = document.createElement('button');
+                deleteImageButton.innerHTML =
+                  '<i class="fas fa-trash-alt"></i>';
+                deleteImageButton.classList.add('delete-image-button');
+                deleteImageButton.addEventListener('click', () =>
+                  deleteImage(post._id, image.asset_id)
+                );
+
+                imageContainer.appendChild(imgElement);
+                imageContainer.appendChild(deleteImageButton);
+                imagesContainer.appendChild(imageContainer);
+              });
+            }
+          } else {
+            console.error('Failed to fetch post details');
+          }
+        } catch (error) {
+          console.error('Error:', error.message);
+        }
+      }
+
+      // Call the function to fetch and populate post details
+      fetchPostDetails();
+
+      // Function to update the post
+      async function updatePost() {
+        const form = document.getElementById('editPostForm');
+        const formData = new FormData(form);
+
+        try {
+          const response = await fetch(`${backendUrl}/api/v1/posts/${postId}`, {
+            method: 'PATCH',
+            body: formData,
+          });
+
+          if (response.ok) {
+            console.log('Post updated successfully');
+            alert('Post updated successfully');
+            // Redirect to the posts page or perform any other action
+            window.location.href = `editpost.html?q=${postId}`;
+          } else {
+            console.error('Failed to update post');
+          }
+        } catch (error) {
+          console.error('Error:', error.message);
+        }
+      }
+
+      async function deleteImage(postId, imageId) {
+        try {
+          const response = await fetch(
+            `${backendUrl}/api/v1/posts/${postId}/images/${imageId}`,
+            {
+              method: 'DELETE',
+            }
+          );
+
+          if (response.ok) {
+            console.log('Image deleted successfully');
+            alert('Image deleted successfully');
+            // Reload posts after deleting an image
+            window.location.href = `editpost.html?q=${postId}`;
+          } else {
+            console.error('Failed to delete image');
+          }
+        } catch (error) {
+          console.error('Error:', error.message);
+        }
+      }
+
+      async function logout() {
+        try {
+          const response = await fetch(`${backendUrl}/logout`, {
+            method: 'GET',
+            credentials: 'include',
+          });
+
+          if (response.ok) {
+            // Redirect to the login page after successful logout
+            localStorage.setItem('token', '');
+            window.location.href = `${frontendUrl}/admin.html`;
+          } else {
+            console.error('Error logging out:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error logging out:', error);
+        }
+      }
+
+      // Add click event listener to the logout button
+      const logoutButton = document.getElementById('logoutButton');
+      logoutButton.addEventListener('click', logout);
+    </script>
+  </body>
+</html>

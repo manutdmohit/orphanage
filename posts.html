@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Posts with Images</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      nav {
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+      }
+
+      #home {
+        padding: 8px 16px;
+        text-decoration: none;
+        cursor: pointer;
+        position: absolute;
+        top: 15px;
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      #home:hover {
+        color: #4caf50;
+      }
+
+      #postButton {
+        position: absolute;
+        top: 15px;
+        right: 310px;
+      }
+
+      #galleryButton {
+        position: absolute;
+        top: 15px;
+        right: 210px;
+      }
+
+      #messageButton {
+        padding: 8px 16px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        position: absolute;
+        top: 15px;
+        right: 100px;
+      }
+
+      #logoutButton {
+        padding: 8px 16px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        position: absolute;
+        top: 15px;
+        right: 10px;
+      }
+
+      form {
+        max-width: 500px;
+        margin: auto;
+        margin-top: 50px;
+      }
+
+      label {
+        display: block;
+        margin-top: 10px;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .posts {
+        margin-top: 30px;
+      }
+
+      .post {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: relative; /* Added position relative */
+      }
+
+      .buttons-container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 10px;
+      }
+
+      .post img {
+        max-width: 100%;
+        height: auto;
+        margin-top: 10px;
+      }
+
+      .post img.medium-image {
+        max-width: 50vw;
+        height: 150px;
+        margin-top: 10px;
+        margin-right: 10px;
+      }
+
+      .buttons-container button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px; /* Add a margin-right for the gap */
+      }
+
+      .buttons-container button:last-child {
+        margin-right: 0; /* Remove margin-right for the last button to avoid unnecessary space */
+      }
+      buttons-container button,
+      .delete-image-button {
+        display: none;
+      }
+
+      .image-container {
+        position: relative;
+        display: inline-block;
+      }
+
+      .delete-image-button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: #e74c3c;
+      }
+
+      .image-container:hover .delete-image-button {
+        display: block;
+      }
+
+      h2 {
+        margin-top: 45px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Logout button on the right side -->
+    <a id="home" href="/dashboard.html">VWF</a>
+
+    <div class="nav-links">
+      <a href="/admingallery.html"
+        ><button id="galleryButton">Gallery</button></a
+      >
+      <a href="/posts.html"><button id="postButton">Post</button></a>
+
+      <button id="logoutButton">Logout</button>
+
+      <a href="/message.html"><button id="messageButton">Message</button></a>
+    </div>
+
+    <form id="postForm" enctype="multipart/form-data">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required />
+
+      <label for="content">Content:</label>
+      <textarea id="content" name="content" rows="4" required></textarea>
+
+      <label for="images">Images:</label>
+      <input type="file" id="images" name="images" accept="image/*" multiple />
+
+      <button type="button" onclick="addPost()">Add Post</button>
+    </form>
+
+    <h2>Posts</h2>
+
+    <div class="posts" id="postsContainer">
+      <!-- Posts will be displayed here -->
+    </div>
+
+    <script src="./config.js"></script>
+    <script>
+      const backendUrl = window.config.backendUrl;
+      const frontendUrl = window.config.frontendUrl;
+
+      async function addPost() {
+        const form = document.getElementById('postForm');
+        const formData = new FormData(form);
+
+        try {
+          const response = await fetch(`${backendUrl}/api/v1/posts`, {
+            method: 'POST',
+            body: formData,
+          });
+
+          if (response.ok) {
+            console.log('Post added successfully');
+            alert('Post added successfully');
+
+            // Reset the form
+            form.reset();
+
+            // Reload posts after adding a new one
+            loadPosts();
+          } else {
+            console.error('Failed to add post');
+          }
+        } catch (error) {
+          console.error('Error:', error.message);
+        }
+      }
+
+      async function loadPosts() {
+        const postsContainer = document.getElementById('postsContainer');
+
+        try {
+          const response = await fetch(`${backendUrl}/api/v1/posts`);
+          if (response.ok) {
+            const posts = await response.json();
+            renderPosts(posts);
+          } else {
+            console.error('Failed to fetch posts');
+          }
+        } catch (error) {
+          console.error('Error:', error.message);
+        }
+      }
+
+      function renderPosts(posts) {
+        const postsContainer = document.getElementById('postsContainer');
+        postsContainer.innerHTML = '';
+
+        posts.forEach((post) => {
+          const postElement = document.createElement('div');
+          postElement.classList.add('post');
+
+          const buttonsContainer = document.createElement('div');
+          buttonsContainer.classList.add('buttons-container');
+
+          const editButton = document.createElement('button');
+          editButton.innerHTML = '<i class="fas fa-edit"></i>';
+          editButton.addEventListener('click', () => editPost(post._id));
+
+          const deleteButton = document.createElement('button');
+          deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+          deleteButton.addEventListener('click', () => deletePost(post._id));
+
+          buttonsContainer.appendChild(editButton);
+          buttonsContainer.appendChild(deleteButton);
+
+          postElement.appendChild(buttonsContainer);
+
+          const titleElement = document.createElement('h3');
+          titleElement.textContent = post.title;
+
+          const contentElement = document.createElement('p');
+          contentElement.textContent = post.content;
+
+          postElement.appendChild(titleElement);
+          postElement.appendChild(contentElement);
+
+          // Assuming images property is an array of image URLs
+          if (post.images && post.images.length > 0) {
+            post.images.forEach((image, index) => {
+              const imageContainer = document.createElement('div');
+              imageContainer.classList.add('image-container');
+
+              const imgElement = document.createElement('img');
+              imgElement.src =
+                'https://res.cloudinary.com/drtm8uqcp/image/upload/' +
+                image.img_name;
+              imgElement.classList.add('medium-image');
+
+              const deleteImageButton = document.createElement('button');
+              deleteImageButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+              deleteImageButton.classList.add('delete-image-button');
+              deleteImageButton.addEventListener('click', () =>
+                deleteImage(post._id, image.asset_id)
+              );
+
+              imageContainer.appendChild(imgElement);
+              imageContainer.appendChild(deleteImageButton);
+
+              postElement.appendChild(imageContainer);
+            });
+          }
+
+          postsContainer.appendChild(postElement);
+        });
+      }
+
+      async function deletePost(postId) {
+        try {
+          const response = await fetch(`${backendUrl}/api/v1/posts/${postId}`, {
+            method: 'DELETE',
+          });
+
+          if (response.ok) {
+            console.log('Post deleted successfully');
+            alert('Post deleted successfully');
+            loadPosts();
+          } else {
+            console.error('Failed to delete post');
+          }
+        } catch (error) {
+          console.error('Error:', error.message);
+        }
+      }
+
+      async function deleteImage(postId, imageId) {
+        try {
+          const response = await fetch(
+            `${backendUrl}/api/v1/posts/${postId}/images/${imageId}`,
+            {
+              method: 'DELETE',
+            }
+          );
+
+          if (response.ok) {
+            console.log('Image deleted successfully');
+            alert('Image deleted successfully');
+            // Reload posts after deleting an image
+            loadPosts();
+          } else {
+            console.error('Failed to delete image');
+          }
+        } catch (error) {
+          console.error('Error:', error.message);
+        }
+      }
+
+      function editPost(postId) {
+        // Redirect to the edit page with the post ID
+        window.location.href = `editpost.html?q=${postId}`;
+      }
+
+      async function logout() {
+        try {
+          const response = await fetch(`${backendUrl}/logout`, {
+            method: 'GET',
+            credentials: 'include',
+          });
+
+          if (response.ok) {
+            // Redirect to the login page after successful logout
+            localStorage.setItem('token', '');
+            window.location.href = `${frontendUrl}/admin.html`;
+          } else {
+            console.error('Error logging out:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error logging out:', error);
+        }
+      }
+
+      // Add click event listener to the logout button
+      const logoutButton = document.getElementById('logoutButton');
+      logoutButton.addEventListener('click', logout);
+
+      // Load posts on page load
+      loadPosts();
+    </script>
+  </body>
+</html>
