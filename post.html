@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VOLUNTEERS WITHOUT FRONTIERS (VWF) - Gallery</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- External stylesheet for Font Awesome icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+
+    <!-- Internal stylesheet for custom styles -->
+    <style>
+      /* Reset default margin and padding */
+      body,
+      header,
+      nav,
+      ul,
+      li,
+      footer,
+      h1,
+      p {
+        margin: 0;
+        padding: 0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      /* Apply basic styles to the website */
+      body {
+        font-family: 'Barlow', sans-serif;
+        background: rgb(29, 45, 77, 1);
+        color: rgb(242, 245, 247);
+        position: relative;
+        min-height: 100vh;
+        margin: 0;
+        padding-bottom: 0;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+      }
+      .navbar {
+        background-color: #102533;
+        color: #fff;
+        padding: 5px;
+        margin: 0 auto;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        max-height: 10vh;
+        z-index: 9999;
+      }
+
+      .container {
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 50px;
+      }
+
+      .nav-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+
+      .nav-links li {
+        margin-right: 20px;
+      }
+
+      .nav-links a,
+      .logo a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 1.2rem;
+        letter-spacing: 0.1rem;
+      }
+      #home {
+        padding: 8px 16px;
+        text-decoration: none;
+        cursor: pointer;
+        position: absolute;
+        top: 15px;
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      #home:hover {
+        color: #4caf50;
+      }
+
+      #postButton {
+        position: absolute;
+        top: 15px;
+        right: 310px;
+      }
+
+      #galleryButton {
+        position: absolute;
+        top: 15px;
+        right: 210px;
+      }
+
+      #messageButton {
+        padding: 8px 16px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        position: absolute;
+        top: 15px;
+        right: 100px;
+      }
+
+      #logoutButton {
+        padding: 8px 16px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        position: absolute;
+        top: 15px;
+        right: 10px;
+      }
+
+      form {
+        max-width: 500px;
+        margin: auto;
+        margin-top: 50px;
+      }
+
+      label {
+        display: block;
+        margin-top: 10px;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .posts {
+        margin-top: 30px;
+      }
+
+      .post {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: relative; /* Added position relative */
+      }
+
+      .buttons-container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 10px;
+      }
+
+      .post img {
+        max-width: 100%;
+        height: auto;
+        margin-top: 10px;
+      }
+
+      .post img.medium-image {
+        max-width: 50vw;
+        height: 150px;
+        margin-top: 10px;
+        margin-right: 10px;
+      }
+
+      .buttons-container button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px; /* Add a margin-right for the gap */
+      }
+
+      .buttons-container button:last-child {
+        margin-right: 0; /* Remove margin-right for the last button to avoid unnecessary space */
+      }
+      buttons-container button,
+      .delete-image-button {
+        display: none;
+      }
+
+      .image-container {
+        position: relative;
+        display: inline-block;
+      }
+
+      .delete-image-button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: #e74c3c;
+      }
+
+      .image-container:hover .delete-image-button {
+        display: block;
+      }
+
+      h2 {
+        margin: 100px auto auto auto;
+      }
+
+      /* Reset default margin and padding */
+      body,
+      header,
+      nav,
+      ul,
+      li,
+      footer,
+      h1,
+      p {
+        margin: 0;
+        padding: 0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      /* Apply basic styles to the website */
+      body {
+        font-family: 'Barlow', sans-serif;
+        background: rgb(29, 45, 77, 1);
+        color: rgb(242, 245, 247);
+        position: relative;
+        min-height: 100vh;
+        margin: 0;
+        padding-bottom: 0;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .support {
+        transition: all ease-in-out 500ms;
+        opacity: 1;
+        transform: translateY(0);
+        max-width: 3xl; /* You would replace '3xl' with your specific value */
+        text-align: center;
+        margin-left: 0;
+        margin-right: auto;
+      }
+
+      .title {
+        margin-bottom: 6px;
+        word-wrap: break-word;
+      }
+
+      .support h2 {
+        font-weight: 100;
+        word-spacing: 0.1rem;
+        letter-spacing: 0.1rem;
+      }
+
+      #description {
+        text-align: center;
+        font-weight: normal;
+      }
+
+      .button-container {
+        display: flex;
+        flex-direction: column;
+        gap: 4px; /* You would replace '4px' with your specific value */
+      }
+
+      .navbar {
+        background-color: #102533;
+        color: #fff;
+        padding: 5px;
+        margin: 0 auto;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        max-height: 10vh;
+        z-index: 9999;
+      }
+
+      .container {
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 50px;
+      }
+
+      .nav-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+
+      .nav-links li {
+        margin-right: 20px;
+      }
+
+      .nav-links a,
+      .logo a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 1.2rem;
+        letter-spacing: 0.1rem;
+      }
+
+      main {
+        margin: 100px 20px 20px 20px;
+        text-align: center;
+        flex-grow: 1;
+        transition: padding-top 0.3s ease;
+      }
+
+      h1 {
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        letter-spacing: 0.1rem;
+      }
+
+      p {
+        font-size: 20px;
+
+        /* font-weight: inherit; */
+        font-weight: 400;
+        text-align: justify;
+        line-height: 1.8;
+        letter-spacing: 0.1rem;
+        margin: 0 0 22px 0;
+        word-spacing: 0.1rem;
+      }
+
+      li {
+        font-family: 'Barlow', sans-serif;
+      }
+
+      #nepali {
+        font-family: 'Mukta', sans-serif;
+      }
+
+      .highlight-box {
+        background-color: #f5f5f5bd; /* Light gray background color *
+        padding: 20px; /* Padding inside the box */
+        border-radius: 10px; /* Rounded corners for a modern look */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth effect */
+        margin-bottom: 20px; /* Margin below the box for spacing */
+      }
+
+      /* Style for the text inside the box */
+      .highlight-box p {
+        margin: 0; /* Remove default margin for paragraphs */
+        font-size: 20px; /* Adjust font size */
+        font-family: 'Mukta', sans-serif;
+        padding: 10px;
+        color: #333; /* Text color */
+      }
+
+      .highlight-box .items-list li {
+        color: #333; /* Text color */
+        margin-left: 25px;
+        font-size: 20px; /* Adjust font size */
+        font-family: 'Mukta', sans-serif;
+        padding: 10px;
+        color: #333; /* Text color */
+      }
+
+      #resources-p {
+        font-family: 'Mukta', sans-serif;
+      }
+
+      #mapText {
+        font-size: 20px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        text-align: justify;
+        line-height: 1.8;
+        letter-spacing: 0.1rem;
+        margin: 0 22px;
+        word-spacing: 0.1rem;
+      }
+
+      #location {
+        text-align: center;
+      }
+
+      .mySlides img {
+        width: 50%;
+      }
+
+      img.image {
+        max-width: 100%;
+        max-height: 225px;
+        margin-bottom: 20px;
+      }
+
+      /* Your CSS styles here */
+      .carousel {
+        width: 100%;
+      }
+
+      .carousel img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .gallery {
+        display: grid;
+        align-items: center;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-gap: 10px;
+      }
+
+      .map-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 40px;
+      }
+
+      footer {
+        /* background-color: #333; */
+        --tw-bg-opacity: 1;
+        background-color: #00000052;
+        color: #fff;
+        padding: 10px 20px;
+        margin-top: auto;
+      }
+
+      .footer-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+
+      .footer-column {
+        flex-basis: 30%;
+        margin-bottom: 20px;
+      }
+
+      .footer-column h3 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #fff;
+        letter-spacing: 0.1rem;
+      }
+
+      .footer-column p {
+        font-size: 14px;
+        margin-bottom: 10px;
+        word-spacing: -0.1em;
+      }
+
+      .footer-column ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 5px;
+      }
+
+      .footer-column ul li a {
+        color: #fff;
+        text-decoration: none;
+        letter-spacing: 0.1rem;
+      }
+
+      .footer-bottom {
+        margin-top: 20px;
+        text-align: center;
+        color: #ccc;
+        font-size: 12px;
+      }
+
+      #contact p a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .carousel {
+        width: 80%;
+        margin: 0 auto;
+      }
+
+      .carousel-cell {
+        width: 100%;
+      }
+
+      .carousel img {
+        width: 50%;
+        height: auto;
+      }
+
+      .sub-head {
+        text-align: center;
+        /* color: #333; */
+        font-weight: bold;
+        align-items: center;
+      }
+      /* Style for the table */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 16px;
+      }
+
+      /* Style for table headers */
+      th {
+        background-color: #b9abab;
+        color: #333;
+        font-weight: bold;
+        padding: 12px;
+        text-align: left;
+      }
+
+      /* Style for table rows */
+      td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      /* Hover effect for table rows */
+      tr:hover {
+        background-color: #7a5b5b;
+      }
+
+      /* Style for the scrollable container */
+      .scrollable {
+        max-height: 300px;
+        overflow-y: auto;
+      }
+
+      /* Responsive styling for small screens */
+      @media (max-width: 600px) {
+        th,
+        td {
+          font-size: 14px;
+        }
+      }
+      .sub-head p {
+        margin-bottom: 0;
+      }
+
+      /* Additional styles for programs.html */
+      section ul {
+        margin: 10px 0;
+        padding-left: 0;
+        text-align: initial;
+      }
+
+      section li {
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 10px;
+        list-style-type: none;
+        display: flex;
+        align-items: flex-start;
+        letter-spacing: 0.1rem;
+      }
+
+      section li::before {
+        content: '\2022';
+        display: inline-block;
+        width: 1em;
+        margin-right: 5px;
+        flex-shrink: 0;
+      }
+
+      /* Fix for section ul li p element */
+      section ul li p {
+        text-indent: 0;
+      }
+
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td,
+      th {
+        text-align: left;
+        padding: 8px;
+      }
+
+      /* The part */
+      /* {
+        height: 165px;
+        overflow-y: scroll;
+        border-bottom: 1px solid #ddd;
+      } */
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      th,
+      td {
+        border: 1px solid #000000;
+        padding: 7px;
+        text-align: left;
+      }
+
+      th {
+        background-color: inherit;
+        background-color: #102533;
+        color: #fff;
+        font-weight: inherit;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+      }
+
+      /* Style for sticky table header */
+      #myTable thead th {
+        position: sticky;
+        top: 0;
+        background-color: #f2f2f2;
+        z-index: 2;
+      }
+
+      /* th {
+        position: sticky;
+        background-color: rgb(29, 45, 77, 1);
+        z-index: 2;
+        top: 0;
+      } */
+
+      .logo img {
+        width: 20%;
+        height: fit-content;
+      }
+
+      .active {
+        background-color: #717171;
+      }
+
+      /* Fading animation */
+      .fade {
+        animation-name: fade;
+        animation-duration: 1.5s;
+      }
+
+      @keyframes fade {
+        from {
+          opacity: 0.4;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .items-list {
+        margin-top: -40px;
+      }
+
+      .second-list {
+        margin-top: -20px;
+      }
+
+      /* Add this CSS to your stylesheet */
+      .items-list ul {
+        /* list-style-type: none; */
+        padding: 0;
+      }
+
+      .items-list li {
+        text-align: left;
+        line-height: 1.5; /* Add line spacing (adjust as needed) */
+        font-size: 18px;
+        font-family: 'Roboto', sans-serif;
+        /* font-weight: inherit; */
+        font-weight: 400;
+        text-align: justify;
+        /* line-height: 1.8; */
+        letter-spacing: 0.1rem;
+        /* margin: 0 0 22px 0; */
+        margin-left: 20px; /* Add left margin for indentation (adjust as needed) */
+        word-spacing: 0.1rem;
+      }
+
+      /* Style for the image modal */
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        overflow: auto;
+      }
+
+      .modal-content {
+        width: 40%;
+        display: flex;
+        /* justify-content: center; */
+        align-items: center;
+        /* height: 100%; */
+        margin: 120px auto;
+      }
+
+      .close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        color: white;
+        font-size: 30px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      /* Gallery image styles */
+      .gallery img {
+        width: 250px; /* Adjust the width as needed */
+        height: 250px; /* Adjust the height as needed */
+        object-fit: cover; /* This property ensures the image covers the entire box, preserving its aspect ratio */
+        margin: 5px; /* Optional: Add margin between images */
+      }
+
+      .gallery img:hover {
+        opacity: 0.7;
+      }
+
+      /* Change the color of the scrollbar track */
+      ::-webkit-scrollbar {
+        width: 10px;
+        background-color: #f0f0f0; /* Light gray color for the track */
+      }
+
+      /* Change the color of the scrollbar thumb */
+      ::-webkit-scrollbar-thumb {
+        background-color: #3498db; /* Blue color for the thumb */
+      }
+
+      /* Change the color of the scrollbar thumb on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: #2980b9; /* Slightly darker blue color on hover */
+      }
+
+      main {
+        position: relative;
+        transition: padding-top 0.3s ease;
+      }
+
+      .hamburger-icon:hover ~ main {
+        padding-top: 0;
+      }
+
+      @media (min-width: 767px) {
+        .hamburger-icon {
+          display: none;
+        }
+      }
+
+      /* Responsive styles */
+      @media (max-width: 767px) {
+        h1 {
+          font-size: 30px;
+        }
+
+        p {
+          font-size: 16px;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .hamburger-icon {
+          cursor: pointer;
+          text-align: right;
+          font-size: 20px;
+          margin-right: 22px;
+        }
+
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          background-color: #102533; /*Background color for the mobile menu */
+          position: absolute;
+          top: 50px; /* Adjust as needed to position the mobile menu */
+          right: 0;
+          width: 100%;
+          padding: 20px;
+          z-index: 999;
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .nav-links li {
+          margin-top: 10px;
+        }
+
+        .nav-links a {
+          text-align: start;
+        }
+
+        .main-menu-active-padding {
+          padding-top: 225px; /* Adjust the top padding to match your header height */
+        }
+
+        .modal-content {
+          width: 90%;
+          display: flex;
+          /* justify-content: center; */
+          align-items: center;
+          /* height: 100%; */
+          margin: 200px auto;
+        }
+
+        .footer-container {
+          flex-direction: column;
+        }
+
+        .footer-column {
+          flex-basis: 100%;
+          max-width: 100%;
+          text-align: left;
+          margin-bottom: auto;
+        }
+      }
+
+      button {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      @media only screen and (max-width: 768px) {
+        .contact-container {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="container">
+          <div class="logo">
+            <a href="/">VWF</a>
+          </div>
+          <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/aboutus.html">About</a></li>
+            <li><a href="programs.html">Programs</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+          <div class="hamburger-icon">
+            <i class="fa fa-bars"></i>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <h2>Posts</h2>
+
+    <div class="posts" id="postsContainer">
+      <!-- Posts will be displayed here -->
+    </div>
+
+    <footer>
+      <!-- Add your footer content here -->
+    </footer>
+
+    <!-- Add your external scripts here -->
+    <script src="./config.js"></script>
+    <!-- Inline JavaScript code for custom functionality -->
+    <script>
+      const hamburgerIcon = document.querySelector('.hamburger-icon');
+      const navLinks = document.querySelector('.nav-links');
+      const mainContent = document.querySelector('main');
+
+      // const aboutUs = document.querySelector('#about-us-desc');
+
+      hamburgerIcon.addEventListener('click', function () {
+        navLinks.classList.toggle('active');
+        mainContent.classList.toggle('main-menu-active-padding');
+      });
+
+      const backendUrl = window.config.backendUrl;
+      const frontendUrl = window.config.frontendUrl;
+
+      async function addPost() {
+        const form = document.getElementById('postForm');
+        const formData = new FormData(form);
+
+        try {
+          const response = await fetch(`${backendUrl}/api/v1/posts`, {
+            method: 'POST',
+            body: formData,
+          });
+
+          if (response.ok) {
+            console.log('Post added successfully');
+            alert('Post added successfully');
+
+            // Reset the form
+            form.reset();
+
+            // Reload posts after adding a new one
+            loadPosts();
+          } else {
+            console.error('Failed to add post');
+          }
+        } catch (error) {
+          console.error('Error:', error.message);
+        }
+      }
+
+      async function loadPosts() {
+        const postsContainer = document.getElementById('postsContainer');
+
+        try {
+          const response = await fetch(`${backendUrl}/api/v1/posts`);
+          if (response.ok) {
+            const posts = await response.json();
+            renderPosts(posts);
+          } else {
+            console.error('Failed to fetch posts');
+          }
+        } catch (error) {
+          console.error('Error:', error.message);
+        }
+      }
+
+      function renderPosts(posts) {
+        const postsContainer = document.getElementById('postsContainer');
+        postsContainer.innerHTML = '';
+
+        posts.forEach((post) => {
+          const postElement = document.createElement('div');
+          postElement.classList.add('post');
+
+          const titleElement = document.createElement('h3');
+          titleElement.textContent = post.title;
+
+          const contentElement = document.createElement('p');
+          contentElement.textContent = post.content;
+
+          postElement.appendChild(titleElement);
+          postElement.appendChild(contentElement);
+
+          // Assuming images property is an array of image URLs
+          if (post.images && post.images.length > 0) {
+            post.images.forEach((image, index) => {
+              const imageContainer = document.createElement('div');
+              imageContainer.classList.add('image-container');
+
+              const imgElement = document.createElement('img');
+              imgElement.src =
+                'https://res.cloudinary.com/drtm8uqcp/image/upload/' +
+                image.img_name;
+              imgElement.classList.add('medium-image');
+
+              imageContainer.appendChild(imgElement);
+
+              postElement.appendChild(imageContainer);
+            });
+          }
+
+          postsContainer.appendChild(postElement);
+        });
+      }
+
+      // Load posts on page load
+      loadPosts();
+    </script>
+  </body>
+</html>
