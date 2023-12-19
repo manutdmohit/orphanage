@@ -246,7 +246,7 @@
       }
 
       h2 {
-        margin: 100px auto auto auto;
+        margin: 100px auto 10px auto;
       }
 
       /* Reset default margin and padding */
@@ -766,7 +766,7 @@
       /* Gallery image styles */
       .gallery img {
         width: 250px; /* Adjust the width as needed */
-        height: 250px; /* Adjust the height as needed */
+        /* height: 250px; Adjust the height as needed */
         object-fit: cover; /* This property ensures the image covers the entire box, preserving its aspect ratio */
         margin: auto; /* Optional: Add margin between images */
       }
@@ -903,9 +903,16 @@
           padding: 20px;
         }
 
-        .post img.medium-image {
-          max-width: 80vw;
-          height: auto;
+        .post {
+          width: 80vw;
+        }
+
+        .post img {
+          max-width: 70vw;
+        }
+
+        .gallery img {
+          width: 100%;
         }
       }
     </style>
@@ -991,6 +998,7 @@
       const hamburgerIcon = document.querySelector('.hamburger-icon');
       const navLinks = document.querySelector('.nav-links');
       const mainContent = document.querySelector('main');
+      const postsTitle = document.querySelector('h2');
 
       // const aboutUs = document.querySelector('#about-us-desc');
 
@@ -1037,6 +1045,12 @@
           if (response.ok) {
             const posts = await response.json();
             renderPosts(posts);
+
+            if (posts.length) {
+              postsTitle.innerText = 'All Posts';
+            } else {
+              postsTitle.innerText = 'No Post Available';
+            }
           } else {
             console.error('Failed to fetch posts');
           }
