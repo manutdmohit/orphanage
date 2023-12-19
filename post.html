@@ -171,14 +171,37 @@
       }
 
       .posts {
-        margin-top: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
       }
 
       .post {
-        border: 1px solid #ddd;
-        padding: 10px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        padding: 16px;
+      }
+
+      .post h3 {
+        font-size: 1.5rem;
         margin-bottom: 10px;
-        position: relative; /* Added position relative */
+        color: #000000;
+      }
+
+      .post p {
+        font-size: 1rem;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .post img {
+        max-width: 50vw;
+        height: auto;
+        border-radius: 8px;
+        margin-top: 10px;
       }
 
       .buttons-container {
@@ -186,19 +209,6 @@
         top: 0;
         right: 0;
         margin: 10px;
-      }
-
-      .post img {
-        max-width: 100%;
-        height: auto;
-        margin-top: 10px;
-      }
-
-      .post img.medium-image {
-        max-width: 50vw;
-        height: 150px;
-        margin-top: 10px;
-        margin-right: 10px;
       }
 
       .buttons-container button {
@@ -758,7 +768,7 @@
         width: 250px; /* Adjust the width as needed */
         height: 250px; /* Adjust the height as needed */
         object-fit: cover; /* This property ensures the image covers the entire box, preserving its aspect ratio */
-        margin: 5px; /* Optional: Add margin between images */
+        margin: auto; /* Optional: Add margin between images */
       }
 
       .gallery img:hover {
@@ -881,6 +891,14 @@
       }
 
       @media (max-width: 768px) {
+        .mySlides img {
+          width: 500px;
+        }
+
+        .mySlides #logo_image {
+          width: 300px;
+        }
+
         .contact-container {
           padding: 20px;
         }
@@ -901,6 +919,7 @@
           </div>
           <ul class="nav-links">
             <li><a href="/">Home</a></li>
+            <li><a href="/post.html">Posts</a></li>
             <li><a href="/aboutus.html">About</a></li>
             <li><a href="programs.html">Programs</a></li>
             <li><a href="resources.html">Resources</a></li>
@@ -921,7 +940,48 @@
     </div>
 
     <footer>
-      <!-- Add your footer content here -->
+      <div class="footer-container">
+        <section class="footer-column">
+          <h3>About Us</h3>
+          <p id="about-us-desc">
+            We are a non-profit organization for the livelihood enhancement of
+            landless and rural communities in the far western Nepal.
+          </p>
+        </section>
+        <section class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/post.html">Post</a></li>
+            <li><a href="aboutus.html">About</a></li>
+            <li><a href="programs.html">Programs</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </section>
+        <section class="footer-column" id="contact">
+          <h3>Contact Us</h3>
+          <p>Address: Tikapur-1, Sudurpaschim Province, Nepal</p>
+          <p>
+            <a href="mailto: janak.mahar2044@gmail.com">
+              Email: janak.mahar2044@gmail.com</a
+            >
+          </p>
+          <p>
+            <a href="tel: +977 09150922">Phone: +977 091560922 </a>
+          </p>
+
+          <p>
+            <a href="tel: +977 9858422956">Office Head: +977 9858422956 </a>
+          </p>
+
+          <p>
+            <a href="tel: +977 9865878427">Management Head: +977 9865878427 </a>
+          </p>
+        </section>
+      </div>
+      <p class="footer-bottom" id="footer-year"></p>
     </footer>
 
     <!-- Add your external scripts here -->
@@ -993,31 +1053,44 @@
           const postElement = document.createElement('div');
           postElement.classList.add('post');
 
+          // Display the first image as a header image
+          if (post.images && post.images.length > 0) {
+            const imgElement = document.createElement('img');
+            imgElement.src =
+              'https://res.cloudinary.com/drtm8uqcp/image/upload/' +
+              post.images[0].img_name;
+            postElement.appendChild(imgElement);
+          }
+
+          const postContent = document.createElement('div');
+          postContent.classList.add('post-content');
+
           const titleElement = document.createElement('h3');
           titleElement.textContent = post.title;
 
           const contentElement = document.createElement('p');
           contentElement.textContent = post.content;
 
-          postElement.appendChild(titleElement);
-          postElement.appendChild(contentElement);
+          postContent.appendChild(titleElement);
+          postContent.appendChild(contentElement);
 
-          // Assuming images property is an array of image URLs
-          if (post.images && post.images.length > 0) {
-            post.images.forEach((image, index) => {
-              const imageContainer = document.createElement('div');
-              imageContainer.classList.add('image-container');
+          postElement.appendChild(postContent);
 
+          // Display additional images in a gallery style
+          if (post.images && post.images.length > 1) {
+            const galleryElement = document.createElement('div');
+            galleryElement.classList.add('gallery');
+
+            post.images.slice(1).forEach((image) => {
               const imgElement = document.createElement('img');
               imgElement.src =
                 'https://res.cloudinary.com/drtm8uqcp/image/upload/' +
                 image.img_name;
-              imgElement.classList.add('medium-image');
 
-              imageContainer.appendChild(imgElement);
-
-              postElement.appendChild(imageContainer);
+              galleryElement.appendChild(imgElement);
             });
+
+            postElement.appendChild(galleryElement);
           }
 
           postsContainer.appendChild(postElement);
