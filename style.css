@@ -15,14 +15,6 @@ p {
   box-sizing: border-box;
 }
 
-/* .mySlides {
-  display: none;
-} */
-
-/* img {
-  vertical-align: middle;
-} */
-
 /* Apply basic styles to the website */
 body {
   font-family: 'Barlow', sans-serif;
@@ -688,9 +680,9 @@ main {
     width: auto;
   }
 
-  .mySlides img {
+  /* .mySlides img {
     width: 80%;
-  }
+  } */
 
   .map-container iframe {
     height: 200px;
@@ -878,6 +870,10 @@ tr:hover {
   overflow-y: auto;
 }
 
+#logo_image {
+  width: 40%;
+}
+
 /* Responsive styling for small screens */
 @media (max-width: 600px) {
   th,
@@ -891,5 +887,15 @@ tr:hover {
   .logo img {
     width: 20%;
     height: fit-content;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .mySlides img {
+    width: 80%;
+  }
+
+  #logo_image {
+    width: 60%;
   }
 }
