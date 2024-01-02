@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact List</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
     <style>
       /* Reset default margin and padding */
       body,
@@ -106,12 +111,11 @@
 
       .container {
         max-width: 800px;
-        margin: 0 auto;
+        margin: 75px auto 0;
         padding: 20px;
         background-color: #fff;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
-        margin-top: 75px;
       }
 
       h1 {
@@ -120,9 +124,9 @@
         margin-top: 45px;
         margin-bottom: 20px;
       }
-
       .contact-item {
-        border: 1px solid #e0e0e0;
+        position: relative;
+        border: 1px solid #633434;
         border-radius: 8px;
         padding: 20px;
         margin-bottom: 20px;
@@ -144,6 +148,20 @@
       .contact-item p {
         margin: 10px 0;
         color: #555;
+      }
+
+      .delete-button {
+        position: absolute; /* Position the button absolutely within the relative parent */
+        top: 10px; /* Adjust the top position as needed */
+        right: 10px; /* Adjust the right position as needed */
+        background-color: transparent; /* Make the background transparent */
+        border: none;
+        cursor: pointer;
+        color: #f00; /* Adjust the color as needed */
+      }
+
+      .delete-button:hover {
+        color: #d00; /* Adjust the color on hover as needed */
       }
 
       @media (max-width: 600px) {
@@ -248,7 +266,57 @@
           contacts.contacts.forEach((contact) => {
             const contactItem = document.createElement('div');
             contactItem.className = 'contact-item';
+
+            // Display contact information
             contactItem.innerHTML = `<strong>Name: ${contact.name}</strong> <strong>Email: ${contact.email}</strong><strong>Phone: ${contact.phone}</strong><strong> Message: ${contact.message}</strong>`;
+            contactsContainer.appendChild(contactItem);
+
+            // Create a delete button with Font Awesome icon
+            const deleteButton = document.createElement('button');
+            deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
+            deleteButton.className = 'delete-button';
+
+            // Add click event listener to the delete button
+            deleteButton.addEventListener('click', async () => {
+              const isConfirmed = confirm(
+                'Are you sure you want to delete this contact?'
+              );
+
+              if(isConfirmed){
+
+                try {
+                  // Make a DELETE request to remove the contact
+
+                const deleteResponse = await fetch(
+                  `${backendUrl}/api/v1/contacts/${contact._id}`,
+                  {
+                    method: 'DELETE',
+                    headers: {
+                      Authorization: `Bearer ${token}`,
+                    },
+                  }
+                );
+
+                if (deleteResponse.ok) {
+                  // Remove the contact from the UI
+                  contactsContainer.removeChild(contactItem);
+                  console.log('Contact deleted successfully.');
+                } else {
+                  console.error(
+                    'Error deleting contact:',
+                    deleteResponse.statusText
+                  );
+                }
+              } catch (error) {
+                console.error('Error deleting contact:', error);
+              }
+            }
+            });
+
+            // Append the delete button to the contact item
+            contactItem.appendChild(deleteButton);
+
+            // Append the contact item to the contacts container
             contactsContainer.appendChild(contactItem);
           });
         } catch (error) {
