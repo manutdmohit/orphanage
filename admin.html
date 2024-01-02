@@ -175,9 +175,12 @@
             window.location.href = `${frontendUrl}/dashboard.html`;
           } else {
             // Authentication failed, handle error
+            alert('Invalid email or password');
+
             console.error('Authentication failed:', data.message);
           }
         } catch (error) {
+          alert('Invalid email or password');
           console.error('Error during login:', error);
         }
       }
