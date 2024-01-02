@@ -407,39 +407,48 @@
           const response = await fetch(`${backendUrl}/api/v1/gallery`);
 
           if (response.ok) {
-            const galleryData = await response.json();
+            let galleryData = await response.json();
 
             let imageGallery;
             imageGallery = document.getElementById('imageGallery');
             imageGallery.innerHTML = '';
 
             if (galleryData && galleryData.gallery) {
-              galleryImages = galleryData;
-              galleryData.gallery.forEach((gallery) => {
-                gallery.images.forEach((image, index) => {
-                  const galleryItem = document.createElement('div');
-                  galleryItem.className = 'gallery-item';
+              galleryData = galleryData.gallery.filter(
+                (g) => g.images.length > 0
+              );
 
-                  // Set 'assetId' dataset
-                  galleryItem.dataset.assetId = image.asset_id;
+              const allImages = galleryData.map((g) => g.images).flat();
 
-                  const img = document.createElement('img');
-                  img.src =
-                    'https://res.cloudinary.com/drtm8uqcp/image/upload/' +
-                    image.img_name;
-                  img.alt = `Image ${index + 1}`;
-                  img.addEventListener('click', () => {
-                    showImageInModal(gallery.images, index);
-                  });
-
-                  const deleteIcon = document.createElement('i');
-                  deleteIcon.className = 'fas fa-trash delete-icon';
-
-                  galleryItem.appendChild(img);
-                  galleryItem.appendChild(deleteIcon);
-
-                  imageGallery.appendChild(galleryItem);
+              allImages.forEach((image, index) => {
+                galleryImages.push({
+                  index: index,
+                  img_name: image.img_name,
+                  asset_id: image.asset_id,
                 });
+
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+
+                // Set 'assetId' dataset
+                galleryItem.dataset.assetId = image.asset_id;
+
+                const img = document.createElement('img');
+                img.src =
+                  'https://res.cloudinary.com/drtm8uqcp/image/upload/' +
+                  image.img_name;
+                img.alt = `Image ${index + 1}`;
+                img.addEventListener('click', () => {
+                  showImageInModal(image, index);
+                });
+
+                const deleteIcon = document.createElement('i');
+                deleteIcon.className = 'fas fa-trash delete-icon';
+
+                galleryItem.appendChild(img);
+                galleryItem.appendChild(deleteIcon);
+
+                imageGallery.appendChild(galleryItem);
               });
 
               // Event delegation for delete icons
@@ -464,7 +473,7 @@
       }
 
       // Function to show an image in the modal
-      function showImageInModal(images, index) {
+      function showImageInModal(image, index) {
         currentImageIndex = index;
 
         const galleryItem = document.createElement('div');
@@ -472,8 +481,7 @@
 
         const img = document.createElement('img');
         img.src =
-          'https://res.cloudinary.com/drtm8uqcp/image/upload/' +
-          images[index].img_name;
+          'https://res.cloudinary.com/drtm8uqcp/image/upload/' + image.img_name;
         img.alt = `Image ${index + 1}`;
 
         modalImage.src = img.src;
@@ -512,34 +520,30 @@
       function nextImageInModal() {
         currentImageIndex++;
 
-        const docsWithImages = galleryImages.gallery.filter(
-          (g) => g.images.length
-        );
-
-        if (currentImageIndex >= docsWithImages.length) {
+        if (currentImageIndex >= galleryImages.length) {
           currentImageIndex = 0;
         }
 
-        const images = galleryImages.gallery.map((g) => g.images).flat();
+        const image = galleryImages.find(
+          (image) => image.index == currentImageIndex
+        );
 
-        showImageInModal(images, currentImageIndex);
+        showImageInModal(image, currentImageIndex);
       }
 
       // Function to show the previous image in the modal
       function prevImageInModal() {
         currentImageIndex--;
 
-        const docsWithImages = galleryImages.gallery.filter(
-          (g) => g.images.length
-        );
-
         if (currentImageIndex < 0) {
-          currentImageIndex = docsWithImages.length - 1;
+          currentImageIndex = galleryImages.length - 1;
         }
 
-        const images = galleryImages.gallery.map((g) => g.images).flat();
+        const image = galleryImages.find(
+          (image) => image.index == currentImageIndex
+        );
 
-        showImageInModal(images, currentImageIndex);
+        showImageInModal(image, currentImageIndex);
       }
 
       // Event listener for keyboard shortcuts
